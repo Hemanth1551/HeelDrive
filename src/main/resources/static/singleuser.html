@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="ss1.css">
+    <link rel="stylesheet" href="sicss.css">
+	<script src="https://unpkg.com/phosphor-icons"></script>
+    <script src="https://kit.fontawesome.com/179f43bc7a.js" crossorigin="anonymous"></script>
+	<title>Admin Product Tab</title>
+</head>
+<body>
+	<div class="app">
+		<header class="app-header">
+			<div class="app-header-logo">
+				<div class="logo">
+					<span class="logo-icon">
+						<img src="/images/logo.png" />
+					</span>
+					<h1 class="logo-title">
+						<span>Heel_Drive</span>
+						<span>Shoes</span>
+					</h1>
+				</div>
+			</div>
+			<div class="app-header-navigation">
+				<div class="tabs">
+
+					<a href="address.html">
+						Addess
+					</a>
+					<a href="card.html">
+						Cards
+					</a>
+					<a href="users.html" class="active">
+						Users
+					</a>
+					<a href="order.html">
+						Orders
+					</a>
+					<a href="product.html">
+						Products
+					</a>
+				</div>
+			</div>
+			<div class="app-header-actions">
+				<button class="user-profile">
+					<span id="adminname"></span>
+					<span>
+						<img src="" id="adminimg"/>
+					</span>
+				</button>
+				<div class="app-header-actions-buttons">
+				</div>
+			</div>
+			<div class="app-header-mobile">
+				<button class="icon-button large">
+					<i class="ph-list"></i>
+				</button>
+			</div>
+		</header>
+		<div class="app-body">
+			<div class="app-body-navigation">
+				<nav class="navigation">
+					<a href="Dashboard.html">
+						<i class="ph-browsers"></i>
+						<span>Dashboard</span>
+					</a>
+					<a href="address.html">
+						<i class="ph ph-house"></i>
+						<span>Addess</span>
+					</a>
+					<a href="card.html">
+						<i class="ph ph-credit-card"></i>
+						<span>Cards</span>
+					</a>
+					<a href="users.html">
+						<i class="ph ph-user"></i>
+						<span>Users</span>
+					</a>
+					<a href="order.html">
+						<i class="ph ph-bag"></i>
+						<span>Orders</span>
+					</a>
+					<a href="product.html">
+						<i class="ph ph-package"></i>
+						<span>Products</span>
+					</a>
+					<a href="payment.html">
+						<i class="ph ph-currency-inr"></i>
+						<span>Payments</span>
+					</a>
+					<a href="profile.html">
+						<i class="ph ph-user-circle"></i>
+						<span>Profile</span>
+					</a>
+				</nav>
+				<footer class="footer">
+					<h1>Heel Drive<small>©</small></h1>
+					<div>
+						Heel Drive ©<br />
+						All Rights Reserved 2025
+					</div>
+				</footer>
+			</div>
+			<div class="app-body-main-content">
+				<section class="service-section">
+					<h2>User Data</h2>
+					<div class="service-section-header">
+					</div>
+					<div class="mobile-only">
+						<button class="flat-button">
+							Toggle search
+						</button>
+					</div>
+                    <div class="card-wapper">
+                        <div class="card1">
+                            <div class="product-img">
+                                <div class="img-display">
+                                    <div class="img-showcase" style="height: 350px;">
+                                        <img src="" id="profile" alt="shoe" style="height: 200px; width: 200px; min-width: 0; background-size: cover; margin-top:150px; margin-left:150px; ">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="product-content" style="margin-left: -500px;">
+                                <h2 class="product-tittle" id="username"></h2>
+                                <div class="product-ratting">
+									<p class="last-price">User Id: <span id="userid" style="color: #256eff; text-decoration: none;">7</span></p>
+                                </div>
+                                <div class="product-price">
+                                    <p class="last-price">Email: <span id="mail" style="color: #256eff; text-decoration: none;">hemanth79950@gmail.com</span></p>
+                                    <p class="new-price">Password: <span id="pass">1551</span></p>
+                                    <p class="last-price">Mobile No: <span id="mob" style="color: #256eff; text-decoration: none;">7995037120</span></p>
+                                    <p class="new-price">Created: <span id="cre">27-2-2025</span></p>
+                                    <p class="new-price">Last Updated: <span id="lastup">27-2-2025</span></p>
+                                </div>
+                               
+                                <div class="purchase-info">
+                                    <button type="button" class="btn"  onclick="updateuser()">Update <i class="ph ph-user" style="color: white;"></i></button>
+                                
+                                    <button type="button" class="btn" onclick="deleteuser()">Delete <i class="ph ph-trash" style="color: white;"></i></button>
+                                </div>
+                            </div>
+                            <div class="addresss">
+                                <div class="product-detail" style=" width: 1000px; color: black; margin-left: 10px;">
+                                    <h2>Address By User Id:</h2>
+                                    <table class="transfers-card" id="product-table">
+			                            <thead>
+			                                <tr style="background-color: #313131; color: white;">
+								            	<th style="padding: 10px;">Address ID</th>
+								                <th>User Id</th>
+								                <th>Address Type</th>
+								                <th>Address Line</th>
+								                <th>Country</th>
+								                <th>State</th>
+								                <th>City</th>
+								                <th>ZipCode</th>
+								                <th>IsDefault</th> <!-- New column for actions -->
+								                <th>Created At</th>
+								            </tr>
+			                            </thead>
+			                            <tbody>
+			                                
+			                            </tbody>
+			                       </table>
+                                </div>
+                            </div>
+                        </div>
+					<div class="faq">
+					</div>
+					<div class="payment-section-footer">
+					</div>
+				</section>
+			</div>
+			<div class="app-body-sidebar">
+			</div>   
+		</div>
+	</div>
+	
+	<script>
+	
+	// Get the full query string from the URL
+	const queryString = window.location.search;
+
+	// Create a URLSearchParams object
+	const urlParams = new URLSearchParams(queryString);
+
+	// Get the value of the "id" parameter	
+	let userId = urlParams.get('id');
+	
+	
+	if (userId) {
+        fetch(`/api/getUsers/${userId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error: ${response.status} - ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Fetched product data:", data);
+                
+                
+                var username = document.getElementById("username"); // Ensure the element exists
+                var userid = document.getElementById("userid");
+                var useremail = document.getElementById("mail");
+                var userpass = document.getElementById("pass");
+                var usermob = document.getElementById("mob");
+                var usercre = document.getElementById("cre");
+                var userlast = document.getElementById("lastup");
+                var userprofile = document.getElementById("profile");
+
+
+
+                
+
+                userprofile.src = `/api/getUserImage/${userId}`;
+           
+                
+                
+                username.textContent = data.username || "N/A"; // Use `color`, not `colour`
+                userid.textContent = data.id || "N/A";
+                useremail.textContent = data.email || "N/A";
+                userpass.textContent = data.password || "N/A";
+                usermob.textContent = data.phone || "N/A";
+                
+                usercre.textContent = data.created || "N/A"; // Use `color`, not `colour`
+                userlast.textContent = data.updateat || "N/A";
+                
+               
+                
+                
+            })
+            .catch(error => console.error("Error fetching product:", error));
+    }   
+	
+	
+	function deleteuser(){
+		
+		if (confirm(`Are you sure you want to delete user`)) {
+            fetch(`/api/userdel/${userId}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('User was deleted');
+                // Optional: Remove user from DOM here
+            })
+            .catch(error => {
+                console.error(error);
+                alert('An error occurred while deleting the user.');
+            });
+        }
+		
+	}
+	
+	function updateuser(){
+		window.location.href = `updateuser.html?id=${userId}`;
+	}
+	
+	
+    let admindata = {};
+
+	  async function fetchAdminInfo() {
+	    try {
+	      const adminRes = await fetch('/api/admininfo');
+
+	      if (!adminRes.ok) {
+	        throw new Error('Failed to fetch admin info');
+	      }
+
+	      const data = await adminRes.json();
+
+	      
+	      // Update DOM
+	      document.getElementById("adminname").innerText = data.name;
+	      document.getElementById("adminimg").src = `/api/getAdminImage/${data.id}`;
+
+	      filterAddressByUserId();
+	      console.log("Admin Data:", data);
+
+	    } catch (error) {
+	      console.error('Error fetching admin data:', error.message);
+	    }
+	  }
+
+	  // Call function on load
+	  fetchAdminInfo();
+	
+	  
+	  function filterAddressByUserId() {
+		    const userid = userId;
+		    console.log(userid);
+
+		    if (userid === '') {
+		        console.log("There is no user by that ID");
+		        return;
+		    }
+
+		    fetch('/api/address')
+		        .then(response => response.json())
+		        .then(addresses => {
+		            const tableBody = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+		            tableBody.innerHTML = '';
+
+		            // Filter and handle possible null or undefined values
+		            const filterAddresses = addresses.filter(address => 
+		                address?.userid !== undefined && address?.userid !== null && 
+		                address.userid.toString() === userid.toString()
+		            );
+
+		            // Populate the table with filtered addresses
+		            filterAddresses.forEach(address => {
+		                const row = document.createElement('tr');
+
+		                const Addressid = document.createElement('td');
+		                Addressid.textContent = address.id;
+		                row.appendChild(Addressid);
+
+		                const userIdCell = document.createElement('td');
+		                userIdCell.textContent = address.userid;
+		                row.appendChild(userIdCell);
+
+		                const addresstype = document.createElement('td');
+		                addresstype.textContent = address.addresstype;
+		                row.appendChild(addresstype);
+
+		                const addressline = document.createElement('td');
+		                addressline.textContent = address.addressline;
+		                row.appendChild(addressline);
+
+		                const country = document.createElement('td');
+		                country.textContent = address.country;
+		                row.appendChild(country);
+
+		                const state = document.createElement('td');
+		                state.textContent = address.state;
+		                row.appendChild(state);
+
+		                const city = document.createElement('td');
+		                city.textContent = address.city;
+		                row.appendChild(city);
+
+		                const zipcode = document.createElement('td');
+		                zipcode.textContent = address.zipcode;
+		                row.appendChild(zipcode);
+
+		                const isdefault = document.createElement('td');
+		                isdefault.textContent = address.isdefault;
+		                row.appendChild(isdefault);
+
+		                const createdat = document.createElement('td');
+		                createdat.textContent = address.createdat;
+		                row.appendChild(createdat);
+
+		                tableBody.appendChild(row);
+		            });
+
+		        })
+		        .catch(error => console.error("Error fetching addresses:", error));
+		}
+
+	  
+	  
+	</script>
+	
+</body>
+</html>
+
+<style>
+    @media (max-width: 426px) {
+        .product-detail {
+            width: 400px;
+        }
+    }
+</style>

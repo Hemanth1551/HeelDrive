@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="ss1.css">
+	<script src="https://unpkg.com/phosphor-icons"></script>
+	<title>Admin Address Tab</title>
+</head>
+<body>
+	<div class="app">
+		<header class="app-header">
+			<div class="app-header-logo">
+				<div class="logo">
+					<span class="logo-icon">
+						<img src="/images/logo.png" />
+					</span>
+					<h1 class="logo-title">
+						<span>Heel_Drive</span>
+						<span>Shoes</span>
+					</h1>
+				</div>
+			</div>
+			<div class="app-header-navigation">
+				<div class="tabs">
+					<!-- <a href="#">
+						DashBoard
+					</a> -->
+					<a href="address.html" class="active">
+						Addess
+					</a>
+					<a href="cart.html">
+						Carts
+					</a>
+					<a href="users.html">
+						Users
+					</a>
+					<a href="order.html">
+						Orders
+					</a>
+					<a href="product.html">
+						Products
+					</a>
+				</div>
+			</div>
+			<div class="app-header-actions">
+				<button class="user-profile">
+					<span id="adminname"></span>
+					<span>
+						<img src="" id="adminimg"/>
+					</span>
+				</button>
+				<div class="app-header-actions-buttons">
+					<input class="user-search" id="address-search" type="text" placeholder="Search Users By Id" oninput="filterAddressByUserId()">
+				</div>
+			</div>
+			<div class="app-header-mobile">
+				<button class="icon-button large">
+					<i class="ph-list"></i>
+				</button>
+			</div>
+	
+		</header>
+		<div class="app-body">
+			<div class="app-body-navigation">
+				<nav class="navigation">
+					<a href="Dashboard.html">
+						<i class="ph-browsers"></i>
+						<span>Dashboard</span>
+					</a>
+					<a href="address.html">
+						<i class="ph ph-house"></i>
+						<span>Address</span>
+					</a>
+					<a href="cart.html">
+						<i class="ph ph-credit-card"></i>
+						<span>Carts</span>
+					</a>
+					<a href="users.html">
+						<i class="ph ph-user"></i>
+						<span>Users</span>
+					</a>
+					<a href="order.html">
+						<i class="ph ph-bag"></i>
+						<span>Orders</span>
+					</a>
+					<a href="product.html">
+						<i class="ph ph-package"></i>
+						<span>Products</span>
+					</a>
+					<a href="payment.html">
+						<i class="ph ph-currency-inr"></i>
+						<span>Payments</span>
+					</a>
+					<a href="profile.html">
+						<i class="ph ph-user-circle"></i>
+						<span>Profile</span>
+					</a>
+				</nav>
+				<footer class="footer">
+					<h1>Heel Drive<small>©</small></h1>
+					<div>
+						Heel Drive ©<br />
+						All Rights Reserved 2025
+					</div>
+				</footer>
+			</div>
+			<div class="app-body-main-content">
+                <section class="service-section">
+                    <div class="transfer-section-header">
+                        <h2>Address Details</h2>
+                        <div class="filter-options">
+                            <p>
+                            	<input class="user-search" id="addressid-search" type="text" placeholder="Search By Address Id" oninput="filterAddressByAddressId()">                          
+                            </p>
+                            <button class="icon-button">
+                                <i class="ph-funnel"></i>
+                            </button>
+                            <button class="icon-button">
+                                <i class="ph-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="transfers">
+                        
+                        <table class="transfers-card" id="product-table">
+                            <thead>
+                                <tr style="background-color: #313131;">
+                                    <tr>
+					            	<th>Address ID</th>
+					                <th>User Id</th>
+					                <th>Address Type</th>
+					                <th>Address Line</th>
+					                <th>Country</th>
+					                <th>State</th>
+					                <th>City</th>
+					                <th>ZipCode</th>
+					                <th>IsDefault</th> <!-- New column for actions -->
+					                <th>Created At</th>
+					            </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+
+              			</div>
+			<div class="app-body-sidebar">
+
+			</div>
+
+            
+		</div>
+
+        
+	</div>
+
+<script>
+
+
+function fetchAddress() {
+    const userid = 2;
+    fetch('/api/address')
+        .then(response => response.json())
+        .then(addresses => {
+            //console.log("Fetched Addresses:", addresses);
+
+            // Ensure addresses is an array before filtering
+            const tableBody = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; 
+            
+            addresses.forEach(address =>{
+            	const row = document.createElement('tr');
+            	
+            	//address id
+            	const Addressid = document.createElement('td');
+            	Addressid.textContent = address.id;
+                row.appendChild(Addressid);
+                
+                //userid 
+					const userid = document.createElement('td');
+                userid.textContent = address.userid;
+                row.appendChild(userid);
+                
+                //addresstype
+                const addresstype = document.createElement('td');
+                addresstype.textContent = address.addresstype;
+                row.appendChild(addresstype);
+                
+                //addressline
+                const addressline = document.createElement('td');
+                addressline.textContent = address.addressline;
+                row.appendChild(addressline);
+                
+                //country
+                const country = document.createElement('td');
+                country.textContent = address.country;
+                row.appendChild(country);
+                
+                //state
+                const state = document.createElement('td');
+                state.textContent = address.state;
+                row.appendChild(state);
+                
+                //city
+				const city = document.createElement('td');
+				city.textContent = address.city;
+				row.appendChild(city);
+				
+				//zipcode
+				const zipcode = document.createElement('td');
+				zipcode.textContent = address.zipcode;
+				row.appendChild(zipcode);
+				
+				//isdefault
+				const isdefault = document.createElement('td');
+				isdefault.textContent = address.isdefault;
+				row.appendChild(isdefault);
+				
+				//createdat
+				const createdat = document.createElement('td');
+				createdat.textContent = address.createdat;
+				row.appendChild(createdat);
+          
+                
+                tableBody.appendChild(row);
+            })
+            
+});
+}
+
+
+function filterAddressByUserId() {
+    const userid = document.getElementById('address-search').value.trim();
+    console.log(userid);
+
+    if (userid === '') {
+        console.log("There is no user by that ID");
+        return;
+    }
+
+    fetch('/api/address')
+        .then(response => response.json())
+        .then(addresses => {
+            const tableBody = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+
+            // Filter and handle possible null or undefined values
+            const filterAddresses = addresses.filter(address => 
+                address?.userid !== undefined && address?.userid !== null && 
+                address.userid.toString() === userid.toString()
+            );
+
+            // Populate the table with filtered addresses
+            filterAddresses.forEach(address => {
+                const row = document.createElement('tr');
+
+                const Addressid = document.createElement('td');
+                Addressid.textContent = address.id;
+                row.appendChild(Addressid);
+
+                const userIdCell = document.createElement('td');
+                userIdCell.textContent = address.userid;
+                row.appendChild(userIdCell);
+
+                const addresstype = document.createElement('td');
+                addresstype.textContent = address.addresstype;
+                row.appendChild(addresstype);
+
+                const addressline = document.createElement('td');
+                addressline.textContent = address.addressline;
+                row.appendChild(addressline);
+
+                const country = document.createElement('td');
+                country.textContent = address.country;
+                row.appendChild(country);
+
+                const state = document.createElement('td');
+                state.textContent = address.state;
+                row.appendChild(state);
+
+                const city = document.createElement('td');
+                city.textContent = address.city;
+                row.appendChild(city);
+
+                const zipcode = document.createElement('td');
+                zipcode.textContent = address.zipcode;
+                row.appendChild(zipcode);
+
+                const isdefault = document.createElement('td');
+                isdefault.textContent = address.isdefault;
+                row.appendChild(isdefault);
+
+                const createdat = document.createElement('td');
+                createdat.textContent = address.createdat;
+                row.appendChild(createdat);
+
+                tableBody.appendChild(row);
+            });
+
+        })
+        .catch(error => console.error("Error fetching addresses:", error));
+}
+
+
+function filterAddressByAddressId() {
+    const addressId = document.getElementById('addressid-search').value.trim();
+    console.log(addressId);
+
+    if (addressId === '') {
+        console.log("There is no address ID entered");
+        return;
+    }
+
+    fetch(`/api/address/${addressId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server returned ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(address => {
+            console.log("Fetched Address:", address);
+
+            const tableBody = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+
+            // Defensive check to ensure the object is valid
+            if (!address || !address.id) {
+                console.log("No valid address data found.");
+                return;
+            }
+
+            // Create a table row
+            const row = document.createElement('tr');
+            const fields = ['id', 'userid', 'addresstype', 'addressline', 'country', 'state', 'city', 'zipcode', 'isdefault', 'createdat'];
+
+            fields.forEach(field => {
+                const cell = document.createElement('td');
+                cell.textContent = address[field] ?? '';
+                row.appendChild(cell);
+            });
+
+            tableBody.appendChild(row);
+        })
+        .catch(error => {
+            console.error("Error fetching address:", error);
+        });
+}
+
+
+let admindata = {};
+
+async function fetchAdminInfo() {
+  try {
+    const adminRes = await fetch('/api/admininfo');
+
+    if (!adminRes.ok) {
+      throw new Error('Failed to fetch admin info');
+    }
+
+    const data = await adminRes.json();
+
+    
+    // Update DOM
+    document.getElementById("adminname").innerText = data.name;
+    document.getElementById("adminimg").src = `/api/getAdminImage/${data.id}`;
+
+    //console.log("Admin Data:", data);
+
+  } catch (error) {
+    console.error('Error fetching admin data:', error.message);
+  }
+}
+
+// Call function on load
+fetchAdminInfo();
+
+
+window.addEventListener('DOMContentLoaded', () => {
+	fetch('/api/admininfo')
+    .then(res => {
+      if (res.ok) return res.json();
+      else throw new Error('Not Admin');
+    })
+    .then(user => {
+      // User is logged in
+      //console.log("Logged in as Admin:", user.name);
+      fetchAddress();
+
+      //window.location.href = `/usersingleproduct.html?id=${loc}`;
+    })
+    .catch(() => {
+      // Neither admin nor user logged in
+      alert("Not logged in. Redirecting to login page.");
+      window.location.href = '/adminlogin.html';
+    });
+});
+
+// Call the function when the page loads
+//window.onload = fetchAddress;
+
+</script>
+
+</body>
+</html>
+
+<style>
+    .status-active {
+	color: green;
+	font-weight: bold;
+}
+.status-inactive {
+	color: red;
+	font-weight: bold;
+}
+
+@media (min-width: 1025px) and (max-width: 1600px){ 
+	.service-section{
+		width: 1000px;
+	}
+	.service-section table{
+		width: 1000px;
+	}
+}
+</style>
