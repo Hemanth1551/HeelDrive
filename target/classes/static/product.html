@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="ss1.css">
+	<script src="https://unpkg.com/phosphor-icons"></script>
+	<title>Admin Product Tab</title>
+</head>
+<body>
+	<div class="app">
+		<header class="app-header">
+			<div class="app-header-logo">
+				<div class="logo">
+					<span class="logo-icon">
+						<img src="/images/logo.png" />
+					</span>
+					<h1 class="logo-title">
+						<span>Heel_Drive</span>
+						<span>Shoes</span>
+					</h1>
+				</div>
+			</div>
+			<div class="app-header-navigation">
+				<div class="tabs">
+
+					<a href="address.html">
+						Addess
+					</a>
+					<a href="cart.html">
+						Carts
+					</a>
+					<a href="users.html">
+						Users
+					</a>
+					<a href="order.html">
+						Orders
+					</a>
+					<a href="product.html" class="active">
+						Products
+					</a>
+				</div>
+			</div>
+			<div class="app-header-actions">
+				<button class="user-profile">
+					<span id="adminname"></span>
+					<span>
+						<img src="" id="adminimg"/>
+					</span>
+				</button>
+				<div class="app-header-actions-buttons">
+					<input class="user-search" id="user-search" type="text" oninput="filterUserById()" placeholder="Search Users By Id">
+				</div>
+			</div>
+			<div class="app-header-mobile">
+				<button class="icon-button large">
+					<i class="ph-list"></i>
+				</button>
+			</div>
+	
+		</header>
+		<div class="app-body">
+			<div class="app-body-navigation">
+				<nav class="navigation">
+					<a href="Dashboard.html">
+						<i class="ph-browsers"></i>
+						<span>Dashboard</span>
+					</a>
+					<a href="address.html">
+						<i class="ph ph-house"></i>
+						<span>Address</span>
+					</a>
+					<a href="cart.html">
+						<i class="ph ph-credit-card"></i>
+						<span>Carts</span>
+					</a>
+					<a href="users.html">
+						<i class="ph ph-user"></i>
+						<span>Users</span>
+					</a>
+					<a href="order.html">
+						<i class="ph ph-bag"></i>
+						<span>Orders</span>
+					</a>
+					<a href="product.html">
+						<i class="ph ph-package"></i>
+						<span>Products</span>
+					</a>
+					<a href="payment.html">
+						<i class="ph ph-currency-inr"></i>
+						<span>Payments</span>
+					</a>
+					<a href="profile.html">
+						<i class="ph ph-user-circle"></i>
+						<span>Profile</span>
+					</a>
+				</nav>
+				<footer class="footer">
+					<h1>Heel Drive<small>©</small></h1>
+					<div>
+						Heel Drive ©<br />
+						All Rights Reserved 2025
+					</div>
+				</footer>
+			</div>
+			<div class="app-body-main-content">
+				<section class="service-section" style="width: 41%;">
+					<h2>Add Product</h2>
+					<div class="service-section-header">
+					</div>
+					<div class="mobile-only">
+						<button class="flat-button">
+							Toggle search
+						</button>
+					</div>
+					<label >Upload all deatils with 5 Images(Image 1 must be side view of Product) </label>
+
+					<div class="tiles">
+						<form id="productForm">
+						<article>
+                            <input type="text" name="product_id" class="user-search" placeholder="Product Id">
+                            <input type="text" name="product_name" class="user-search" placeholder="Product Name">
+                            <input type="text" name="brand" class="user-search" placeholder="Brand">
+                            <select name="category" class="user-search" style="margin-top: 10px;">
+							  <option value="">Select Category</option>
+							  <option value="Running">Running</option>
+							  <option value="Sport">Sport</option>
+							  <option value="Family">Family</option>
+							  <option value="Casual">Casual</option>
+							  <option value="Exercise">Exercise</option>
+							  <option value="Sneakers">Sneakers</option>
+							  <option value="Style">Style</option>
+							</select>
+                            <input type="text" name="color" class="user-search" placeholder="Color">
+							<input type="date" name="date" class="user-search" placeholder="Date">
+                        </article>
+                        <article>
+                            <input type="text" name="description" class="user-search" placeholder="Description">
+                            <select name="gender" class="user-search" style="margin-top: 10px;">
+							  <option value="">Select Gender</option>
+							  <option value="Men">Men</option>
+							  <option value="Women">Women</option>
+							  <option value="Unisex">Unisex</option>
+							  <option value="Kids">Kids</option>							  
+							</select>
+                            <input type="text" name="old_price" class="user-search" placeholder="Old Price">
+                            <input type="text" name="offer_price" class="user-search" placeholder="Offer Price">
+                            <input type="text" name="size" class="user-search" placeholder="Size">
+							<input type="text" name="stock_quantity" class="user-search" placeholder="Stock Quantity">
+                        </article>
+                        <article>
+							<!-- <label >Upload 5 Images </label> -->
+                            <input type="file" name="image1" class="user-search" placeholder="Gender" style="font-size: 12px;">
+                            <input type="file" name="image2" class="user-search" placeholder="images" style="font-size: 12px;">
+							<input type="file" name="image3" class="user-search" placeholder="Gender" style="font-size: 12px;">
+                            <input type="file" name="image4" class="user-search" placeholder="images" style="font-size: 12px;">
+                            <input type="file" name="image5" class="user-search" placeholder="images" style="font-size: 12px;">
+                            <!-- <input type="text" class="user-search">
+                            <input type="text" class="user-search"> -->
+                            <button type="submit" class="user-search" style="margin-top: 10px;">Add Product</button>
+                            
+                        </article>
+						</form>
+					</div>
+					<div class="service-section-footer">
+						<p>Services are paid according to the current state of the currency and tariff.</p>
+					</div>
+				</section>
+				<section class="payment-section">
+					<h2>Users </h2>
+					<div class="payments">
+						
+					<table id="users-table" border="0">
+                    <thead>
+                        <tr style="background-color: #313131;">
+                            <th>ID</th>
+			                <th>User Name</th>
+			                <th>Phone</th>
+			                <th>Email</th>
+			                <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+						
+					</div>
+					<div class="faq">
+						<!-- <p>Most frequently asked questions</p> -->
+						<div>
+							<label>Products</label>
+							<input type="text" id="product-search" placeholder="Search Product By Id here" oninput="filterProductById()">
+						</div>
+					</div>
+					<div class="payment-section-footer">
+					</div>
+				</section>
+
+
+                
+			</div>
+			<div class="app-body-sidebar">
+
+			</div>
+
+            
+		</div>
+
+        <section class="transfer-section">
+            <div class="transfer-section-header">
+                <h2>Total Products</h2>
+                <div class="filter-options">
+                    <p>Filter selected: more than 1000 Rupees</p>
+                    <button class="icon-button">
+                        <i class="ph-funnel"></i>
+                    </button>
+                    <button class="icon-button">
+                        <i class="ph-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="transfers">
+                
+                <table id="product-table" border="0">
+                    <thead>
+                        <tr style="background-color: #313131;">
+                            <th>ID</th>
+			                <th>Product ID</th>
+			                <th>Product Name</th>
+			                <th>Brand</th>
+			                <th>Category</th>
+			                <th>Color</th>
+			                <th>Date</th>
+			              <!--  <th>Description</th> -->
+			                <th>Gender</th>
+			                <th>Old Price</th>
+			                <th>Offer Price</th>
+			             <!--   <th>Size</th>
+			                <th>Stock Quantity</th> -->
+			                <th>First Image</th>
+			                <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+	</div>
+	<script>
+        document.getElementById("productForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            let formData = new FormData(this);
+            
+            try {
+                let response = await fetch("/saveProduct", {
+                    method: "POST",
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    alert("Product added successfully!");
+                    document.getElementById("productForm").reset();
+                } else {
+                    alert("Failed to add product. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again.");
+            }
+        });
+    </script>
+	
+	<script>
+        // Function to fetch all products with images and display them in a table
+        function fetchProductsWithImages() {
+            fetch('/getAllProductsWithImages')
+                .then(response => response.json()) // Parse the JSON response
+                .then(products => {
+                	
+                	console.log(products);
+                    const tableBody = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+                    tableBody.innerHTML = ''; // Clear the table before adding rows
+                    
+
+                    // Loop through the products and create table rows
+                    products.forEach(product => {
+                        const row = document.createElement('tr');
+                        
+                     // ID
+                        const IdCell = document.createElement('td');
+                        IdCell.textContent = product.id;
+                        row.appendChild(IdCell);
+                                                
+                        // Product ID
+                        const productIdCell = document.createElement('td');
+                        productIdCell.textContent = product.productId;
+                        row.appendChild(productIdCell);
+                        
+                        // Product Name
+                        const nameCell = document.createElement('td');
+                        nameCell.textContent = product.productName;
+                        row.appendChild(nameCell);
+                        
+                        // Brand
+                        const brandCell = document.createElement('td');
+                        brandCell.textContent = product.brand;
+                        row.appendChild(brandCell);
+                        
+                        // Category
+                        const categoryCell = document.createElement('td');
+                        categoryCell.textContent = product.category;
+                        row.appendChild(categoryCell);
+                        
+                        // Color
+                        const colorCell = document.createElement('td');
+                        colorCell.textContent = product.color;
+                        row.appendChild(colorCell);
+                        
+                        // Date
+                        const dateCell = document.createElement('td');
+                        dateCell.textContent = product.date;
+                        row.appendChild(dateCell);
+                        
+                        // Description
+                        //const descriptionCell = document.createElement('td');
+                        //descriptionCell.textContent = product.description;
+                        //row.appendChild(descriptionCell);
+                        
+                        // Gender
+                        const genderCell = document.createElement('td');
+                        genderCell.textContent = product.gender;
+                        row.appendChild(genderCell);
+                        
+                        // Old Price
+                        const oldPriceCell = document.createElement('td');
+                        oldPriceCell.textContent = '$' + product.oldPrice;
+                        row.appendChild(oldPriceCell);
+                        
+                        // Offer Price
+                        const offerPriceCell = document.createElement('td');
+                        offerPriceCell.textContent = '$' + product.offerPrice;
+                        row.appendChild(offerPriceCell);
+                        
+                        // Size
+                        //const sizeCell = document.createElement('td');
+                        //sizeCell.textContent = product.size;
+                        //row.appendChild(sizeCell);
+                        
+                        // Stock Quantity
+                        //const stockQuantityCell = document.createElement('td');
+                        //stockQuantityCell.textContent = product.stockQuantity;
+                        //row.appendChild(stockQuantityCell);
+                        
+                        // First Image
+                        const imageCell = document.createElement('td');
+                        const imgElement = document.createElement('img');
+                        imgElement.src = product.firstImageUrl; // Set image source to the first image URL
+                        imgElement.alt = 'Product Image';
+                        imgElement.className = 'product-image'; // Apply styling
+                        imageCell.appendChild(imgElement);
+                        row.appendChild(imageCell);
+
+                        // Action Buttons (Update, Delete, View)
+                        const actionCell = document.createElement('td');
+                        const actionButtons = document.createElement('div');
+                        actionButtons.className = 'action-buttons';
+                        
+                        const viewButton = document.createElement('button');
+                        viewButton.className = 'view-button';
+                        viewButton.title = 'View Product';
+                        viewButton.innerHTML = '<i class="ph ph-image"></i>';
+						viewButton.onclick = () => {
+						    window.location.href = `singleview.html?id=${product.id}`;
+						};
+						actionButtons.appendChild(viewButton);
+                        
+                        const updateButton = document.createElement('button');
+                        updateButton.className = 'update-button';
+                        updateButton.title = 'Update Product'; // Tooltip text
+                        updateButton.innerHTML = '<i class="ph ph-pen-nib"></i>';
+                        updateButton.onclick = () => {
+						    window.location.href = `updateproduct.html?id=${product.id}`;
+						};
+						actionButtons.appendChild(updateButton);
+
+                        // Delete Button
+                        const deleteButton = document.createElement('button');
+                        deleteButton.className = 'delete-button';
+                        deleteButton.title = 'Delete Product'; // Tooltip text
+                        deleteButton.innerHTML = '<i class="ph ph-trash"></i>';
+                        deleteButton.onclick = () => deleteProduct(product.id);
+                        actionButtons.appendChild(deleteButton);
+
+                        actionCell.appendChild(actionButtons);
+                        row.appendChild(actionCell);
+                        
+                        // Add the row to the table
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching products with images:', error));
+        }
+        
+        
+        window.addEventListener('DOMContentLoaded', () => {
+        	fetch('/api/admininfo')
+            .then(res => {
+              if (res.ok) return res.json();
+              else throw new Error('Not Admin');
+            })
+            .then(user => {
+              // User is logged in
+              console.log("Logged in as Admin:", user.name);
+              fetchProductsWithImages();
+              fetchUsersWithImages();
+              
+             // window.addEventListener("load", fetchProductsWithImages);
+      			//window.addEventListener("load", fetchUsersWithImages);
+
+              //window.location.href = `/usersingleproduct.html?id=${loc}`;
+            })
+            .catch(() => {
+              // Neither admin nor user logged in
+              alert("Not logged in. Redirecting to login page.");
+              window.location.href = '/adminlogin.html';
+            });
+        });
+        
+
+        function filterProductById() {
+            const input = document.getElementById('product-search').value.trim();
+            //console.log(input);
+            
+            fetch('/getAllProductsWithImages')
+            .then(response => response.json())
+            .then(products => {       
+	            if (input === '') {
+	            	console.log(products);
+	            } else {
+	                //const filteredProducts = products.filter(product => product.productId.toString() === input);
+	                const filteredProducts = products.filter(product => product.id.toString() === input);
+
+	                //console.log(filteredProducts);
+	                
+	                const tableBody = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+                    tableBody.innerHTML = '';
+                    
+                    filteredProducts.forEach(product => {
+                        const row = document.createElement('tr');
+                        
+                     // ID
+                        const IdCell = document.createElement('td');
+                        IdCell.textContent = product.id;
+                        row.appendChild(IdCell);
+                                                
+                        // Product ID
+                        const productIdCell = document.createElement('td');
+                        productIdCell.textContent = product.productId;
+                        row.appendChild(productIdCell);
+                        
+                        // Product Name
+                        const nameCell = document.createElement('td');
+                        nameCell.textContent = product.productName;
+                        row.appendChild(nameCell);
+                        
+                        // Brand
+                        const brandCell = document.createElement('td');
+                        brandCell.textContent = product.brand;
+                        row.appendChild(brandCell);
+                        
+                        // Category
+                        const categoryCell = document.createElement('td');
+                        categoryCell.textContent = product.category;
+                        row.appendChild(categoryCell);
+                        
+                        // Color
+                        const colorCell = document.createElement('td');
+                        colorCell.textContent = product.color;
+                        row.appendChild(colorCell);
+                        
+                        // Date
+                        const dateCell = document.createElement('td');
+                        dateCell.textContent = product.date;
+                        row.appendChild(dateCell);
+                        
+                        // Description
+                        //const descriptionCell = document.createElement('td');
+                        //descriptionCell.textContent = product.description;
+                        //row.appendChild(descriptionCell);
+                        
+                        // Gender
+                        const genderCell = document.createElement('td');
+                        genderCell.textContent = product.gender;
+                        row.appendChild(genderCell);
+                        
+                        // Old Price
+                        const oldPriceCell = document.createElement('td');
+                        oldPriceCell.textContent = '$' + product.oldPrice;
+                        row.appendChild(oldPriceCell);
+                        
+                        // Offer Price
+                        const offerPriceCell = document.createElement('td');
+                        offerPriceCell.textContent = '$' + product.offerPrice;
+                        row.appendChild(offerPriceCell);
+                        
+                        // Size
+                        //const sizeCell = document.createElement('td');
+                        //sizeCell.textContent = product.size;
+                        //row.appendChild(sizeCell);
+                        
+                        // Stock Quantity
+                        //const stockQuantityCell = document.createElement('td');
+                        //stockQuantityCell.textContent = product.stockQuantity;
+                        //row.appendChild(stockQuantityCell);
+                        
+                        // First Image
+                        const imageCell = document.createElement('td');
+                        const imgElement = document.createElement('img');
+                        imgElement.src = product.firstImageUrl; // Set image source to the first image URL
+                        imgElement.alt = 'Product Image';
+                        imgElement.className = 'product-image'; // Apply styling
+                        imageCell.appendChild(imgElement);
+                        row.appendChild(imageCell);
+
+                        // Action Buttons (Update, Delete, View)
+                        const actionCell = document.createElement('td');
+                        const actionButtons = document.createElement('div');
+                        actionButtons.className = 'action-buttons';
+                        
+                        const viewButton = document.createElement('button');
+                        viewButton.className = 'view-button';
+                        viewButton.title = 'View Product';
+                        viewButton.innerHTML = '<i class="ph ph-image"></i>';
+						viewButton.onclick = () => {
+						    window.location.href = `singleview.html?id=${product.id}`;
+						};
+						actionButtons.appendChild(viewButton);
+                        
+                        const updateButton = document.createElement('button');
+                        updateButton.className = 'update-button';
+                        updateButton.title = 'Update Product'; // Tooltip text
+                        updateButton.innerHTML = '<i class="ph ph-pen-nib"></i>';
+                        updateButton.onclick = () => {
+						    window.location.href = `updateproduct.html?id=${product.id}`;
+						};
+						actionButtons.appendChild(updateButton);
+
+                        // Delete Button
+                        const deleteButton = document.createElement('button');
+                        deleteButton.className = 'delete-button';
+                        deleteButton.title = 'Delete Product'; // Tooltip text
+                        deleteButton.innerHTML = '<i class="ph ph-trash"></i>';
+                        deleteButton.onclick = () => deleteProduct(product.id);
+                        actionButtons.appendChild(deleteButton);
+
+                        actionCell.appendChild(actionButtons);
+                        row.appendChild(actionCell);
+                        
+                        // Add the row to the table
+                        tableBody.appendChild(row);
+                    });
+
+                    
+                    
+	                
+	            }
+            });
+        }
+
+
+        // Function to delete a product
+        function deleteProduct(Id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+            	console.log(Id);
+
+            	var int_id = parseInt(Id);
+            	
+            	console.log(int_id);
+
+                fetch(`/productdel/${int_id}`, { method: 'DELETE' })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Product deleted successfully');
+                            fetchProductsWithImages();  // Refresh the table after deletion
+                        } else {
+                            alert('Error deleting product');
+                        }
+                    })
+                    .catch(error => console.error('Error deleting product:', error));
+            }
+        }
+
+        
+        
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+     // Function to fetch all products with images and display them in a table
+        function fetchUsersWithImages() {
+    	fetch('/api/getAllUsersWithImages')
+        .then(response => response.json()) // Parse the JSON response
+        .then(users => {
+            const tableBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear the table before adding rows
+
+            console.log(users);
+
+            // Loop through the users and create table rows
+            users.forEach(user => {
+                const row = document.createElement('tr');
+
+                // ID
+                const IdCell = document.createElement('td');
+                IdCell.textContent = user.id;
+                row.appendChild(IdCell);
+
+                // Username
+                const usernameCell = document.createElement('td');
+                usernameCell.textContent = user.username;
+                row.appendChild(usernameCell);
+                
+
+                // Created Date
+                const createdCell = document.createElement('td');
+                createdCell.textContent = user.created;
+                row.appendChild(createdCell);
+                
+             // Size
+                const sizeCell = document.createElement('td');
+                sizeCell.textContent = user.email;
+                row.appendChild(sizeCell);
+
+                // Action Buttons (View)
+                const actionCell = document.createElement('td');
+                const actionButtons = document.createElement('div');
+                actionButtons.className = 'action-buttons';
+
+                const viewButton = document.createElement('button');
+                viewButton.className = 'view-button';
+                viewButton.title = 'View User';
+                viewButton.innerHTML = '<i class="ph ph-image"></i>';
+                viewButton.onclick = () => {
+                    window.location.href = `singleuser.html?id=${user.id}`;
+                };
+
+                actionButtons.appendChild(viewButton);
+                actionCell.appendChild(actionButtons); // FIXED: Append buttons to the action cell
+                row.appendChild(actionCell);
+
+                // Add the row to the table
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error fetching users with images:', error)); // FIXED: Correct error message
+}
+
+     
+     
+        function filterUserById() {
+            const input = document.getElementById('user-search').value.trim();
+            //console.log(input);
+            
+            fetch('/api/getAllUsersWithImages')
+	        .then(response => response.json()) // Parse the JSON response
+	        .then(users => {
+	        	if (input === '') {
+	            	console.log(users);
+	            } else {
+	                const filtereduser = users.filter(user => user.id.toString() === input);
+	                //console.log(filteredProducts);
+	                
+	                const tableBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
+	                tableBody.innerHTML = '';
+	                
+	                filtereduser.forEach(user => {
+	                    const row = document.createElement('tr');
+
+		                // ID
+		                const IdCell = document.createElement('td');
+		                IdCell.textContent = user.id;
+		                row.appendChild(IdCell);
+		
+		                // Username
+		                const usernameCell = document.createElement('td');
+		                usernameCell.textContent = user.username;
+		                row.appendChild(usernameCell);
+		
+		                // Created Date
+		                const createdCell = document.createElement('td');
+		                createdCell.textContent = user.created;
+		                row.appendChild(createdCell);
+		                
+		             // Size
+		                const sizeCell = document.createElement('td');
+		                sizeCell.textContent = user.email;
+		                row.appendChild(sizeCell);
+		
+		                // Action Buttons (View)
+		                const actionCell = document.createElement('td');
+		                const actionButtons = document.createElement('div');
+		                actionButtons.className = 'action-buttons';
+		
+		                const viewButton = document.createElement('button');
+		                viewButton.className = 'view-button';
+		                viewButton.title = 'View User';
+		                viewButton.innerHTML = '<i class="ph ph-image"></i>';
+		                viewButton.onclick = () => {
+		                    window.location.href = `singleuser.html?id=${user.id}`;
+		                };
+		
+		                actionButtons.appendChild(viewButton);
+		                actionCell.appendChild(actionButtons); // FIXED: Append buttons to the action cell
+		                row.appendChild(actionCell);
+		
+		                // Add the row to the table
+		                tableBody.appendChild(row);
+ 					});
+
+                    
+                    
+	                
+	            }
+            });
+        }
+        
+        let admindata = {};
+
+  	  async function fetchAdminInfo() {
+  	    try {
+  	      const adminRes = await fetch('/api/admininfo');
+
+  	      if (!adminRes.ok) {
+  	        throw new Error('Failed to fetch admin info');
+  	      }
+
+  	      const data = await adminRes.json();
+
+  	      
+  	      // Update DOM
+  	      document.getElementById("adminname").innerText = data.name;
+  	      document.getElementById("adminimg").src = `/api/getAdminImage/${data.id}`;
+
+  	      console.log("Admin Data:", data);
+
+  	    } catch (error) {
+  	      console.error('Error fetching admin data:', error.message);
+  	    }
+  	  }
+
+  	  // Call function on load
+  	  fetchAdminInfo();
+     
+     // Call the function when the page loads
+        //window.addEventListener("load", fetchProductsWithImages);
+		//window.addEventListener("load", fetchUsersWithImages);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="ss1.css">
+	<script src="https://unpkg.com/phosphor-icons"></script>
+	<title>User Order Tab</title>
+</head>
+<body>
+	<div class="app" style="width:100%;">
+		<header class="app-header">
+			<div class="app-header-logo">
+				<div class="logo">
+					<span class="logo-icon">
+						<img src="/images/logo.png" />
+					</span>
+					<h1 class="logo-title" style="font-weight:bold;">
+						<span>Heel_Drive</span>
+						<span>Shoes</span>
+					</h1>
+				</div>
+			</div>
+			<div class="app-header-navigation">
+				<div class="tabs">
+					<!-- <a href="#">
+						DashBoard
+					</a> -->
+					<a href="userproducts.html">
+						Products
+					</a>
+					<a href="useraddress.html">
+						Address
+					</a>
+					<a href="userorder.html" class="active">
+						Orders
+					</a>
+					<a href="usercart.html">
+						Cart
+					</a>
+					<a href="userprofile.html">
+						Your Profile
+					</a>
+				</div>
+			</div>
+			
+			<div id="mapDiv" style="
+            align-items: center;
+            text-align: center;
+            display: none; position: absolute; background-color: rgb(50, 50, 50); height: 300px; width: 400px; top: 150px; right: 0; z-index: 2;">
+                <div class="tabs" style="display: block;">
+					<a href="userproducts.html" class="active">
+						Products
+					</a><br>
+					<a href="useraddress.html">
+						Address
+					</a><br>
+					<a href="userorder.html">
+						Orders
+					</a><br>
+					<a href="usercart.html">
+						Cart
+					</a><br>
+					<a href="userprofile.html">
+						Your Profile
+					</a>
+				</div>
+            </div>
+			<div class="app-header-actions">
+				<button class="user-profile">
+					<span id="usname"></span>
+					<span>
+						<img src="" id="usprofile"/>
+					</span>
+				</button>
+				<div class="app-header-actions-buttons">
+				</div>
+			</div>
+			<div class="app-header-mobile">
+				<button class="icon-button large" onclick="showmap()">
+					<i class="ph-list"></i>
+				</button>
+			</div>
+	
+		</header>
+		<div class="app-body">
+			<div class="app-body-navigation">
+				<nav class="navigation">
+					<a href="userproducts.html">
+						<i class="ph-browsers"></i>
+						<span>Products</span>
+					</a>
+					<a href="useraddress.html">
+						<i class="ph ph-house"></i>
+						<span>Address</span>
+					</a>
+					<a href="usercart.html">
+						<i class="ph ph-credit-card"></i>
+						<span>Cart</span>
+					</a>
+					<a href="userorder.html">
+						<i class="ph ph-user"></i>
+						<span>Orders</span>
+					</a>
+					<a href="userprofile.html">
+						<i class="ph ph-bag"></i>
+						<span>Your Profile</span>
+					</a>
+					<a href="userlogout.html">
+						<i class="ph ph-package"></i>
+						<span>Logout</span>
+					</a>
+					<!-- <a href="profile.html">
+						<i class="ph ph-user-circle"></i>
+						<span>Profile</span>
+					</a>-->
+				</nav>
+				<footer class="footer">
+					<h1>Heel Drive<small>©</small></h1>
+					<div>
+						Heel Drive ©<br />
+						All Rights Reserved 2025
+					</div>
+				</footer>
+			</div>
+			<div class="app-body-main-content">
+                <section class="service-section">
+                    <div class="transfer-section-header">
+                        <h2>Your Orders</h2>
+                        <div class="filter-options">
+                            <p>Filter selected: more than 100 $</p>
+                            <button class="icon-button" title="Logout" onclick="logout()">
+                                <i class="ph ph-sign-out"></i>
+                            </button>
+                            <button class="icon-button">
+                                <i class="ph-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="transfers" style="height:400px;">
+
+
+                        <div class="shopping-cart">
+
+                            <div class="column-labels">
+                              <label class="product-image">Image</label>
+                              <label class="product-details">Product</label>
+                              <label class="product-price">Price</label>
+                              <label class="product-quantity">Quantity</label>
+                              <label class="product-removal">Remove</label>
+                              <label class="product-line-price">Total</label>
+                            </div>
+                            
+                            
+                          
+                            <div class="product">
+								<div class="product-image">
+								  <img src="/images/NIKE+CORTEZ (1).png" alt="Nike Air Force 1">
+								</div>
+								<div class="product-details">
+								  <div class="product-title">Nike Air Force 1 '07</div>
+                                  <div class="product-title" style="color: green;">Paid</div>
+								  <div class="product-title">Shipped</div>
+                                  <div class="product-title">27-03-2303</div>
+                                </div>
+								<div class="product-price" id="product-price">110.00</div>
+								<div class="product-quantity">
+								  <!-- <input type="number" value="1" min="1" id="quantity" onchange="priceChange()"> -->
+								  <div class="product-title" id="quantity" style="font-weight: bold;">1</div>
+								</div>
+								<div class="product-line-price" id="product-line-price">110.00</div>
+							</div>
+							
+							
+							<script>
+							
+							let userId;
+
+							async function fetchUserOrders() {
+							    try {
+							        const ordersRes = await fetch("/api/order");
+							        const orders = await ordersRes.json();
+							        const userOrders = orders.filter(order => order.userid == userId);
+							        console.log("User Orders:", userOrders);
+
+							        const itemRes = await fetch("/api/orderitem");
+							        const items = await itemRes.json();
+							        const userOrderItems = items.filter(item =>
+							            userOrders.find(order => item.orderid == order.id)
+							        );
+							        console.log("User Order Items:", userOrderItems);
+
+							        const productRes = await fetch("/getAllProducts");
+							        const products = await productRes.json();
+							        const userOrderProducts = products.filter(product =>
+							            userOrderItems.find(orderitem => orderitem.productid == product.id)
+							        );
+							        console.log("User Products:", userOrderProducts);
+
+							        // ✅ Mapping final orders
+							        const finalOrders = userOrderItems.map(item => {
+							            const order = userOrders.find(o => o.id == item.orderid);
+							            const product = userOrderProducts.find(pro => pro.id == item.productid);
+
+							            return {
+							                orderid: order?.id || 0,
+							                productid: product?.id || 0,
+							                perPrice: item?.perunitprice || 0,
+							                totalPrice: item?.totalprice || 0,
+							                paymentStatus: order?.paymentstatus || "Unknown",
+							                orderStatus: order?.status || "Unknown",
+							                createdDate: order?.createdat || "N/A",
+							                quantity: item?.quantity || 1,
+							                image: product?.img_1 || "",
+							                name: product?.product_name || "Unknown"
+							            };
+							        });
+
+							        console.log("Final Orders:", finalOrders);
+
+							        // ✅ Inject into HTML dynamically
+							        populateTable(finalOrders);
+
+							    } catch (error) {
+							        console.error("Error fetching orders:", error);
+							    }
+							}
+
+							function populateTable(orders) {
+							    const orderContainer = document.querySelector(".product");
+							    orderContainer.innerHTML = ""; // ✅ Clear previous orders before adding new ones
+
+							    orders.forEach(order => {
+							        // Determine payment status color
+							        let paymentColor = order.paymentStatus.toLowerCase() === "paid" ? "green" : "red";
+					                let orderColor = order.orderStatus.toLowerCase() === "Shipped" ? "green" : "red";
+
+							        const productDiv = document.createElement("div");
+							        productDiv.classList.add("product");
+
+							        productDiv.innerHTML = `
+							            <div class="product-image">
+							                <img src="/getProductImage/${order.productid}" alt="${order.name}">
+							            </div>
+							            <div class="product-details">
+							                <div class="product-title">${order.name}</div>
+							                <div class="product-title" style="color: ${paymentColor}; font-weight: bold;">${order.paymentStatus}</div>
+							                <div class="product-title"  style="color: ${orderColor}; font-weight: bold;">${order.orderStatus}</div>
+							                <div class="product-title">${order.createdDate}</div>
+							            </div>
+							            <div class="product-price">${order.perPrice}</div>
+							            <div class="product-quantity">
+							                <div class="product-title" style="font-weight: bold;">${order.quantity}</div>
+							            </div>
+							            <div class="product-line-price">${order.totalPrice}</div>
+							        `;
+
+							        orderContainer.appendChild(productDiv);
+							    });
+							}
+
+							// Call function
+							//fetchUserOrders();
+							
+							
+							
+							function showmap() {
+						          const mapDiv = document.getElementById("mapDiv");
+						          if (mapDiv.style.display === "none" || mapDiv.style.display === "") {
+						              mapDiv.style.display = "block";
+						          } else {
+						              mapDiv.style.display = "none";
+						          }
+						      }
+							
+							window.addEventListener('DOMContentLoaded', () => {
+					  			fetch('/api/userinfo')
+					  		    .then(res => {
+					  		      if (res.ok) return res.json();
+					  		      else throw new Error('Not User');
+					  		    })
+					  		    .then(user => {
+					  		      // User is logged in
+					  		      console.log("Logged in as User:", user.name);
+					  		    userId = `${user.id}`;
+					  		    fetchUserOrders();
+
+					  		      //window.location.href = `/usersingleproduct.html?id=${loc}`;
+					  		    })
+					  		    .catch(() => {
+					  		      // Neither admin nor user logged in
+					  		      alert("Not logged in. Redirecting to login page.");
+					  		      window.location.href = '/userlogin.html';
+					  		    });
+					  		});
+
+							let userdata = {};
+
+					    	  async function fetchUserInfo() {
+					    	    try {
+					    	      const adminRes = await fetch('/api/userinfo');
+
+					    	      if (!adminRes.ok) {
+					    	        throw new Error('Failed to fetch admin info');
+					    	      }
+
+					    	      const data = await adminRes.json();
+
+					    	      
+					    	      // Update DOM
+					    	      document.getElementById("usname").innerText = data.name;
+					    	      document.getElementById("usprofile").src = `/api/getUserImage/${data.id}`;
+
+					    	      console.log("User Data:", data);
+
+					    	    } catch (error) {
+					    	      console.error('Error fetching admin data:', error.message);
+					    	    }
+					    	  }
+					    	  fetchUserInfo();
+							
+							function logout() {
+								  fetch('/api/logout', {
+								    method: 'POST',
+								    credentials: 'include'  // Important to send session cookie
+								  })
+								    .then(res => {
+								      if (res.ok) return res.text();
+								      else throw new Error('Logout failed');
+								    })
+								    .then(() => {
+								      window.location.href = '/userlogin.html';
+								    })
+								    .catch(() => {
+								      alert("Not logged in. Redirecting to login page.");
+								      window.location.href = '/userlogin.html';
+								    });
+								}
+							  
+							</script>
+				
+                          </div>
+              	    </div>
+			<div class="app-body-sidebar">
+
+			</div>
+
+            
+		</div>
+
+        
+	</div>
+
+
+    
+</body>
+</html>
+
+<style>
+    .status-active {
+	color: green;
+	font-weight: bold;
+}
+.status-inactive {
+	color: red;
+	font-weight: bold;
+}
+
+@media (min-width: 1025px) and (max-width: 1600px){ 
+	.service-section{
+		width: 1000px;
+	}
+	.service-section table{
+		width: 1000px;
+	}
+}
+
+
+
+
+
+
+@import "compass/css3";
+/* I wanted to go with a mobile first approach, but it actually lead to more verbose CSS in this case, so I've gone web first. Can't always force things... Side note: I know that this style of nesting in SASS doesn't result in the most performance efficient CSS code... but on the OCD/organizational side, I like it. So for CodePen purposes, CSS selector performance be damned. */
+/* Global settings */
+/* Global "table" column settings */
+ .product-image {
+	 float: left;
+	 width: 20%;
+}
+ .product-details {
+	 float: left;
+	 width: 37%;
+}
+ .product-price {
+	 float: left;
+	 width: 12%;
+}
+ .product-quantity {
+	 float: left;
+	 width: 10%;
+}
+.product-quantity input{
+	background: transparent;
+	color: white;
+	border: 1px solid white;
+	border-radius: 30px;
+	padding-left: 10px;
+}
+ .product-removal {
+	 float: left;
+	 width: 9%;
+}
+ .product-line-price {
+	 float: left;
+	 width: 12%;
+	 text-align: right;
+}
+/* This is used as the traditional .clearfix class */
+ .group:before, .shopping-cart:before, .column-labels:before, .product:before, .totals-item:before, .group:after, .shopping-cart:after, .column-labels:after, .product:after, .totals-item:after {
+	 content: '';
+	 display: table;
+}
+ .group:after, .shopping-cart:after, .column-labels:after, .product:after, .totals-item:after {
+	 clear: both;
+}
+ .group, .shopping-cart, .column-labels, .product, .totals-item {
+	 zoom: 1;
+}
+/* Apply clearfix in a few places */
+/* Apply dollar signs */
+ .product .product-price:before, .product .product-line-price:before, .totals-value:before {
+	 content: '₹';
+}
+/* Body/Header stuff */
+ body {
+	 padding: 0px 30px 30px 20px;
+	 font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	 font-weight: 100;
+}
+ h1 {
+	 font-weight: 100;
+}
+ label {
+	 color: #aaa;
+}
+ .shopping-cart {
+	 margin-top: -45px; 
+}
+/* Column headers */
+ .column-labels label {
+	 padding-bottom: 15px;
+	 margin-bottom: 15px;
+	 border-bottom: 1px solid #eee;
+}
+ .column-labels .product-image, .column-labels .product-details, .column-labels .product-removal {
+	 text-indent: -9999px;
+}
+/* Product entries */
+ .product {
+	 margin-bottom: 20px;
+	 padding-bottom: 10px;
+	 border-bottom: 1px solid #eee;
+	 font-family: "Be Vietnam Pro", sans-serif;
+
+}
+ .product .product-image {
+	 text-align: center;
+}
+ .product .product-image img {
+	 width: 100px;
+}
+ .product .product-details .product-title {
+	 margin-right: 20px;
+	 /* font-family: 'HelveticaNeue-Medium', 'Helvetica Neue Medium'; */
+	 font-family: "Be Vietnam Pro", sans-serif;
+	 font-weight: 400;
+
+}
+ .product .product-details .product-description {
+	 margin: 5px 20px 5px 0;
+	 line-height: 1.4em;
+	 font-size: 13px;
+	 font-family: "Be Vietnam Pro", sans-serif;
+
+}
+ .product .product-quantity input {
+	 width: 40px;
+}
+ .product .remove-product {
+	 border: 0;
+	 padding: 4px 8px;
+	 background-color: #c66;
+	 color: #fff;
+	 font-family: "Be Vietnam Pro", sans-serif;
+	 font-size: 12px;
+	 border-radius: 3px;
+}
+ .product .remove-product:hover {
+	 background-color: #a44;
+}
+/* Totals section */
+ .totals .totals-item {
+	 float: right;
+	 clear: both;
+	 width: 100%;
+	 margin-bottom: 10px;
+	 font-family: "Be Vietnam Pro", sans-serif;
+
+}
+ .totals .totals-item label {
+	 float: left;
+	 clear: both;
+	 width: 79%;
+	 text-align: right;
+}
+ .totals .totals-item .totals-value {
+	 float: right;
+	 width: 21%;
+	 text-align: right;
+	 font-family: "Be Vietnam Pro", sans-serif;
+
+}
+ .totals .totals-item-total {
+	 font-family: 'HelveticaNeue-Medium', 'Helvetica Neue Medium';
+}
+ .checkout {
+	 float: right;
+	 border: 0;
+	 margin-top: 20px;
+	 padding: 6px 25px;
+	 background-color: #6b6;
+	 color: #fff;
+	 font-size: 25px;
+	 border-radius: 3px;
+	 font-family: "Be Vietnam Pro", sans-serif;
+
+}
+ .checkout:hover {
+	 background-color: #494;
+}
+/* Make adjustments for tablet */
+ @media screen and (max-width: 650px) {
+	 .shopping-cart {
+		 margin: 0;
+		 padding-top: 20px;
+		 border-top: 1px solid #eee;
+	}
+	 .column-labels {
+		 display: none;
+	}
+	 .product-image {
+		 float: right;
+		 width: auto;
+         margin-left: -50px;
+	}
+	 .product-image img {
+		 margin: 0 0 10px 10px;
+	}
+	 .product-details {
+		 float: none;
+		 margin-bottom: 10px;
+		 width: auto;
+	}
+	 .product-price {
+		 clear: both;
+		 width: 70px;
+	}
+	 .product-quantity {
+		 width: 100px;
+	}
+	 .product-quantity input {
+		 margin-left: 20px;
+	}
+	 .product-quantity:before {
+		 content: 'x';
+	}
+	 .product-removal {
+		 width: auto;
+	}
+	 .product-line-price {
+		 float: right;
+		 width: 70px;
+	}
+}
+/* Make more adjustments for phone */
+ @media screen and (max-width: 350px) {
+
+	 .product-removal {
+		 float: right;
+	}
+	 .product-line-price {
+		 float: right;
+		 clear: left;
+		 width: auto;
+		 margin-top: 10px;
+	}
+	 .product .product-line-price:before {
+		 content: 'Item Total: $';
+	}
+	 .totals .totals-item label {
+		 width: 60%;
+	}
+	 .totals .totals-item .totals-value {
+		 width: 40%;
+	}
+}
+ 
+</style>

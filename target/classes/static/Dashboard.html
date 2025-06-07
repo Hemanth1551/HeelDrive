@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="ss1.css">
+	<script src="https://unpkg.com/phosphor-icons"></script>
+	<title>Admin DashBoard</title>
+    <style>
+        #totproducts,#totusers,#totorders{
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+	<div class="app">
+		<header class="app-header">
+			<div class="app-header-logo">
+				<div class="logo">
+					<span class="logo-icon">
+						<img src="/images/logo.png" />
+					</span>
+					<h1 class="logo-title">
+						<span>Heel_Drive</span>
+						<span>Shoes</span>
+					</h1>
+				</div>
+			</div>
+			<div class="app-header-navigation">
+				<div class="tabs">
+					<a href="address.html">
+						Addess
+					</a>
+					<a href="card.html">
+						Cards
+					</a>
+					<a href="users.html">
+						Users
+					</a>
+					<a href="order.html">
+						Orders
+					</a>
+					<a href="product.html">
+						Products
+					</a>
+				</div>
+			</div>
+			<div class="app-header-actions">
+				<button class="user-profile">
+					<span id="adminname"></span>
+					<span>
+						<img src="" id="adminimg"/>
+					</span>
+				</button>
+				<div class="app-header-actions-buttons">
+					<input class="user-search" id="user-search" type="text" oninput="filterUserById()" placeholder="Search Users By Id">
+				</div>
+			</div>
+			<div class="app-header-mobile">
+				<button class="icon-button large">
+					<i class="ph-list"></i>
+				</button>
+			</div>
+	
+		</header>
+		<div class="app-body">
+			<div class="app-body-navigation">
+				<nav class="navigation">
+					<a href="Dashboard.html">
+						<i class="ph-browsers"></i>
+						<span>Dashboard</span>
+					</a>
+					<a href="address.html">
+						<i class="ph ph-house"></i>
+						<span>Addess</span>
+					</a>
+					<a href="cart.html">
+						<i class="ph ph-credit-card"></i>
+						<span>Cards</span>
+					</a>
+					<a href="users.html">
+						<i class="ph ph-user"></i>
+						<span>Users</span>
+					</a>
+					<a href="order.html">
+						<i class="ph ph-bag"></i>
+						<span>Orders</span>
+					</a>
+					<a href="product.html">
+						<i class="ph ph-package"></i>
+						<span>Products</span>
+					</a>
+					<a href="payment.html">
+						<i class="ph ph-currency-inr"></i>
+						<span>Payments</span>
+					</a>
+					<a href="profile.html">
+						<i class="ph ph-user-circle"></i>
+						<span>Profile</span>
+					</a>
+				</nav>
+				<footer class="footer">
+					<h1>Heel Drive<small>©</small></h1>
+					<div>
+						Heel Drive ©<br />
+						All Rights Reserved 2025
+					</div>
+				</footer>
+			</div>
+			<div class="app-body-main-content">
+				<section class="service-section">
+					<h2>Service</h2>
+					<div class="service-section-header">
+					</div>
+					<div class="mobile-only">
+						<button class="flat-button">
+							Toggle search
+						</button>
+					</div>
+					<div class="tiles">
+						<article class="tile">
+							<div class="tile-header">
+								<i class="ph ph-package"></i>
+								<h3>
+									<span>Total Products</span>
+									<span id="totproducts"></span>
+								</h3>
+							</div>
+							<a href="product.html">
+								<span>Go to service</span>
+								<span class="icon-button">
+									<i class="ph-caret-right-bold"></i>
+								</span>
+							</a>
+						</article>
+						<article class="tile">
+							<div class="tile-header">
+								<i class="ph ph-user"></i>
+								<h3>
+									<span>Total Users</span>
+									<span id="totusers"></span>
+								</h3>
+							</div>
+							<a href="users.html">
+								<span>Go to service</span>
+								<span class="icon-button">
+									<i class="ph-caret-right-bold"></i>
+								</span>
+							</a>
+						</article>
+						<article class="tile">
+							<div class="tile-header">
+								<i class="ph-file-light"></i>
+								<h3>
+									<span>Total Orders</span>
+									<span id="totorders"></span>
+								</h3>
+							</div>
+							<a href="order.html">
+								<span>Go to service</span>
+								<span class="icon-button">
+									<i class="ph-caret-right-bold"></i>
+								</span>
+							</a>
+						</article>
+					</div>
+					<div class="service-section-footer">
+						<p>Services are paid according to the current state of the currency and tariff.</p>
+					</div>
+				</section>
+				
+				<section class="payment-section" style="width: 400px;">
+					<h2>Users </h2>
+					<div class="payments" style="width: 360px; margin-right:-100px;">
+						<table id="users-table">
+							<thead>
+								<tr style="background-color: #313131;">
+									<th>Username</th>
+									<th>User ID</th>
+									<th>Mobile No</th>
+									<th>Link Access</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							</tbody>
+						</table>
+					</div>
+					<div class="faq">
+						<!-- <p>Most frequently asked questions</p> -->
+						<div>
+							<label>Orders</label>
+							<input class="user-search" id="order-search" type="text" placeholder="Search Orders By Id" oninput="filterOrderById()">
+						</div>
+					</div>
+					<div class="payment-section-footer">
+					</div>
+				</section>
+
+
+                
+			</div>
+			<div class="app-body-sidebar">
+
+                <!-- empty -->
+             
+			</div>
+
+            
+		</div>
+
+        <section class="transfer-section">
+            <div class="transfer-section-header">
+                <h2>Today Orders</h2>
+                <div class="filter-options">
+                    <p>Filter selected: more than 100 $</p>
+                    <button class="icon-button">
+                        <i class="ph-funnel"></i>
+                    </button>
+                    <button class="icon-button">
+                        <i class="ph-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="transfers">
+                
+                <table id="order-table">
+                    <thead>
+                        <tr style="background-color: #313131;">
+                            <th>Order ID</th>
+                            <th>user Id</th>
+                            <th>Address Id</th>
+                            <th>Total Price</th>
+                           	<th>Status</th>
+                            <th>Payment Status</th>
+                            <th>CreatedAt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </section>
+	</div>
+
+
+<script>
+		let orders = [];
+		let users = [];
+		let products = [];
+		let admindata = [];
+		
+		async function fetchData() {
+		  try {
+		    // Fetch all three APIs in parallel
+		    const [ordersRes, usersRes, productsRes, adminRes ] = await Promise.all([
+		      fetch('/api/order'),
+		      fetch('/api/users'),
+		      fetch('/getAllProducts'),
+		      fetch('/api/admininfo')
+		    ]);
+		
+		    // Check for errors
+		    if (!ordersRes.ok || !usersRes.ok || !productsRes.ok) {
+		      throw new Error('One or more API requests failed');
+		    }
+		
+		    // Parse responses
+		    orders = await ordersRes.json();
+		    users = await usersRes.json();
+		    products = await productsRes.json();
+		    admindata = await adminRes.json();
+		    
+		    //console.log(admindata)
+		    //console.log(admindata[0].username)
+		    // Update DOM
+		    document.getElementById("totorders").innerText = orders.length;
+		    document.getElementById("totusers").innerText = users.length;
+		    document.getElementById("totproducts").innerText = products.length;
+		    document.getElementById("adminname").innerText = admindata.name;
+		    document.getElementById("adminimg").src = `/api/getAdminImage/${admindata.id}`;
+
+			usersdata();
+			orderdata();
+		    
+		    // Optional: Log the data
+		    //console.log({ orders, users, products });
+		
+		  } catch (error) {
+		    console.error('Error fetching data:', error.message);
+		  }
+		}
+		
+		//fetchData();
+		
+		window.addEventListener('DOMContentLoaded', () => {
+        	fetch('/api/admininfo')
+            .then(res => {
+              if (res.ok) return res.json();
+              else throw new Error('Not Admin');
+            })
+            .then(user => {
+              // User is logged in
+              //console.log("Logged in as Admin:", user.name);
+              fetchData();
+
+              //window.location.href = `/usersingleproduct.html?id=${loc}`;
+            })
+            .catch(() => {
+              // Neither admin nor user logged in
+              alert("Not logged in. Redirecting to login page.");
+              window.location.href = '/adminlogin.html';
+            });
+        });
+		
+		
+		
+		
+		function usersdata(){
+			const tableBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear the table before adding rows
+
+
+            // Loop through the users and create table rows
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                
+                
+             // user Name
+                const nameCell = document.createElement('td');
+                nameCell.textContent = user.username;
+                row.appendChild(nameCell);
+                
+                const IdCell = document.createElement('td');
+                IdCell.textContent = user.id;
+                row.appendChild(IdCell);
+                
+                const dateCell = document.createElement('td');
+                dateCell.textContent = user.phone;
+                row.appendChild(dateCell);
+                
+                
+             // ✅ Action Cell
+                const actionCell = document.createElement('td');
+                const actionButtons = document.createElement('div');
+                actionButtons.className = 'action-buttons';
+
+                const viewButton = document.createElement('button');
+                viewButton.className = 'view-button';
+                viewButton.title = 'View User';
+                viewButton.innerHTML = '<i class="ph ph-arrow-right"></i>'; // Requires icon library
+
+                viewButton.onclick = () => {
+                  window.location.href = `singleuser.html?id=${user.id}`;
+                };
+
+                actionButtons.appendChild(viewButton);
+                actionCell.appendChild(actionButtons);
+                row.appendChild(actionCell);
+                
+                
+                tableBody.appendChild(row);
+
+                
+            });
+                
+		}
+
+		
+		function orderdata() {
+			  const tableBody = document.getElementById('order-table').getElementsByTagName('tbody')[0];
+			  tableBody.innerHTML = ''; // ✅ Corrected typo here
+
+			  orders.forEach(order => {
+			    const row = document.createElement('tr');
+
+			    // Order ID
+			    const orderId = document.createElement('td');
+			    orderId.textContent = order.id;
+			    row.appendChild(orderId);
+
+			    // User ID
+			    const userId = document.createElement('td');
+			    userId.textContent = order.userid;
+			    row.appendChild(userId);
+
+			    // Address ID
+			    const addressId = document.createElement('td');
+			    addressId.textContent = order.addressid;
+			    row.appendChild(addressId);
+
+			    // Total Price
+			    const totalPrice = document.createElement('td');
+			    totalPrice.textContent = order.totalprice;
+			    row.appendChild(totalPrice);
+
+			    // Status
+			    const status = document.createElement('td');
+			    status.textContent = order.status;
+			    row.appendChild(status);
+
+			    // Payment Status
+			    const paymentStatus = document.createElement('td');
+			    paymentStatus.textContent = order.paymentstatus;
+			    row.appendChild(paymentStatus);
+
+			    // Created At
+			    const createdAt = document.createElement('td');
+			    createdAt.textContent = order.createdat;
+			    row.appendChild(createdAt);
+
+			    tableBody.appendChild(row);
+			  });
+			}
+		
+		
+		function filterOrderById() {
+		    const userid = document.getElementById('order-search').value.trim();
+		    console.log(userid);
+
+		    if (userid === '') {
+		        console.log("There is no user by that ID");
+		        return;
+		    }
+
+		    fetch('/api/order')
+		        .then(response => response.json())
+		        .then(orders => {
+		            const tableBody = document.getElementById('order-table').getElementsByTagName('tbody')[0];
+		            tableBody.innerHTML = '';
+
+		            // Filter orders correctly
+		            const filterorders = orders.filter(order => 
+		                order?.id !== undefined && order?.id !== null && 
+		                order.id.toString() === userid.toString()
+		            );
+
+		            // Populate the table with filtered orders
+		            filterorders.forEach(order => {
+		                const row = document.createElement('tr');
+
+		             // Order ID
+					    const orderId = document.createElement('td');
+					    orderId.textContent = order.id;
+					    row.appendChild(orderId);
+
+					    // User ID
+					    const userId = document.createElement('td');
+					    userId.textContent = order.userid;
+					    row.appendChild(userId);
+
+					    // Address ID
+					    const addressId = document.createElement('td');
+					    addressId.textContent = order.addressid;
+					    row.appendChild(addressId);
+
+					    // Total Price
+					    const totalPrice = document.createElement('td');
+					    totalPrice.textContent = order.totalprice;
+					    row.appendChild(totalPrice);
+
+					    // Status
+					    const status = document.createElement('td');
+					    status.textContent = order.status;
+					    row.appendChild(status);
+
+					    // Payment Status
+					    const paymentStatus = document.createElement('td');
+					    paymentStatus.textContent = order.paymentstatus;
+					    row.appendChild(paymentStatus);
+
+					    // Created At
+					    const createdAt = document.createElement('td');
+					    createdAt.textContent = order.createdat;
+					    row.appendChild(createdAt);
+
+		                tableBody.appendChild(row);
+		            });
+
+		        })
+		        .catch(error => console.error("Error fetching orders:", error));
+		}
+		
+		
+		
+		
+		function filterUserById() {
+	        const input = document.getElementById('user-search').value.trim();
+	        //console.log(input);
+	        
+	        
+	                const filtereduser = users.filter(user => user.id.toString() === input);
+	                //console.log(filteredProducts);
+	                
+	                const tableBody = document.getElementById('users-table').getElementsByTagName('tbody')[0];
+	                tableBody.innerHTML = '';
+	                
+	                filtereduser.forEach(user => {
+	                    const row = document.createElement('tr');
+
+	                 // user Name
+	                    const nameCell = document.createElement('td');
+	                    nameCell.textContent = user.username;
+	                    row.appendChild(nameCell);
+	                    
+	                    const IdCell = document.createElement('td');
+	                    IdCell.textContent = user.id;
+	                    row.appendChild(IdCell);
+	                    
+	                    const dateCell = document.createElement('td');
+	                    dateCell.textContent = user.phone;
+	                    row.appendChild(dateCell);
+	                    
+	                    
+	                 // ✅ Action Cell
+	                    const actionCell = document.createElement('td');
+	                    const actionButtons = document.createElement('div');
+	                    actionButtons.className = 'action-buttons';
+
+	                    const viewButton = document.createElement('button');
+	                    viewButton.className = 'view-button';
+	                    viewButton.title = 'View User';
+	                    viewButton.innerHTML = '<i class="ph ph-arrow-right"></i>'; // Requires icon library
+
+	                    viewButton.onclick = () => {
+	                        window.location.href = `singleuser.html?id=${user.id}`;
+	                     };
+
+
+	                    actionButtons.appendChild(viewButton);
+	                    actionCell.appendChild(actionButtons);
+	                    row.appendChild(actionCell);
+	                    
+	                    
+	                    tableBody.appendChild(row);
+
+						});
+
+	                
+	                
+	                
+		}
+	   
+		
+		
+  </script>
+
+</body>
+</html>
+
+<style>
+
+.view-button{
+	margin-left: 30px;
+}
+
+</style>

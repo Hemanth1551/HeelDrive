@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="mainstyle.css">
+    <script src="https://kit.fontawesome.com/179f43bc7a.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/phosphor-icons"></script>
+
+    <title>HR</title>
+</head>
+<body>
+    <div class="main-body">
+        <!--
+        <div class="mask-cover">
+            <ul class="mask-cover-list">
+                <li>SHOP</li>
+                <li>CART</li>
+                <li>ACCOUNT</li>
+                <li>ABOUT US</li>
+            </ul>
+        </div>
+        -->
+        <div class="nav-bar">
+            <div class="logo-box">
+                <img src="/images/logo.png" alt="logo" class="logo" id="logo">
+            </div>
+            <UL class="nav-bar-list">
+                <li><a href="#" onclick="goToProducts()">PRODUCTS</a></li>
+                <li><a href="#" onclick="usercartcheck()">CART</a></li>
+                <li id="acc"><a href="#">ACCOUNT</a>
+                    <ul class="sub-link">
+                        <li><a href="adminlogin.html">ADMIN</a></li>
+                        <li><a href="userlogin.html">USER</a></li>
+                    </ul>
+                </li>
+                <li><a href="#fotter">ABOUT US</a></li>
+            </UL>
+
+        </div>
+
+        <div class="app-header-mobile">
+				<button class="icon-button large">
+					<i class="ph-list"></i>
+				</button>
+		</div>
+        <div class="show-case">
+            <div class="container">
+                <div class="shoe-circle">
+                    <div class="top" id="dot"></div>
+                    <div class="right" id="dot"></div>
+                    <div class="right-1" id="dot"></div>
+                    <div class="bottom" id="dot"></div>
+                    <div class="left" id="dot"></div>
+                    <div class="bottom-left" id="dot"></div>
+                </div>
+                <div class="shoes">
+                    <img src="/images/image.png" alt="shoe" class="shoe" id="shoe">
+                </div>
+            </div>
+            
+        <div class="show-case-matter">
+            <div class="top-matter">
+                <label class="top-matter-text-one" id="top-matter-text-one">your feet deserve</label><br>
+                <label class="top-matter-text-two" id="top-matter-text-two">the best</label>
+            </div>
+            <div class="bottom-matter-box">
+                <label class="bottom-matter-two">Use strong adjectives to make the product sound more appealing. For example, you can describe shoes as "sleek", "stylish", "comfortable", or "durable"</label>
+            </div>
+        </div>
+        </div>
+    
+        <div class="collections">
+            <label class="collections-matter">New Collections</label>
+            <div class="collections-data">
+                <div class="box1" id="box1">
+                    <label class="collections-info">Style Collections</label>
+                    <button class="button-57" role="button" onclick="goToCategory('Sport')"><span class="text"><i class="fa-solid fa-cart-shopping"></i></span><span>Shop Now</span></button>
+                </div>
+                <div class="box2" id="box2">
+                    <label class="collections-info">Exercise Collections</label>
+                    <button class="button-57" role="button" onclick="goToCategory('Exercise')"><span class="text"><i class="fa-solid fa-cart-shopping"></i></span><span>Shop Now</span></button>
+                </div>
+                <div class="box3" id="box3">
+                    <label class="collections-info">Running Collections</label>
+                    <button class="button-57" role="button" onclick="goToCategory('Running')"><span class="text"><i class="fa-solid fa-cart-shopping"></i></span><span>Shop Now</span></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="provides">
+            <label class="provides-matter">We Provides</label>
+            <div class="provides-data">
+                <div class="pro-box1">
+                    <label class="pro-box-icon"><img src="/images/truck.gif" alt="truck"></label><br>
+                    <label class="pro-box-matter">fast delivery</label>
+                </div>
+                <div class="pro-box2">
+                    <label class="pro-box-icon"><img src="/images/file-exchange.gif" alt="truck"></label><br>
+                    <label class="pro-box-matter">Easy replacement</label>
+                </div>
+                <div class="pro-box3">
+                    <label class="pro-box-icon"><img src="/images/warehouse.gif" alt="truck"></label><br>
+                    <label class="pro-box-matter">best packageing</label>
+                </div>
+                <div class="pro-box4">
+                    <label class="pro-box-icon"><img src="/images/high-quality.gif" alt="truck"></label><br>
+                    <label class="pro-box-matter">NO1 quality</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="arrival">
+            <label class="arrival-matter">New Arrivals Just Landed</label>
+            <div class="arrival-data">
+                <div class="arrival-box">
+                    <div class="arrival-box-img">
+                        <div class="bbox">
+                            <button type="button" class="button" onclick="arrivalProduct1()">
+                                <span class="button__text">Shop Item</span>
+                                <span class="button__icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                            </button>
+                            <img src="/images/pexels-introspectivedsgn-4211336.jpg" alt="shoe">
+                        </div>
+
+                        <div class="bbox">
+                            <button type="button" class="button" onclick="arrivalProduct2()">
+                            <span class="button__text">Shop Item</span>
+                            <span class="button__icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                        </button>
+                        <img src="/images/pexels-introspectivedsgn-4876536.jpg" alt="shoe">
+                        </div>
+
+                        <div class="bbox">
+                            <button type="button" class="button" onclick="arrivalProduct3()">
+                            <span class="button__text">Shop Item</span>
+                            <span class="button__icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                        </button>
+                        <img src="/images/pexels-hamza01nsr-12725052.jpg" alt="shoe">
+                        </div>
+                        
+                       <div class="bbox">
+                        <button type="button" class="button"  onclick="arrivalProduct4()">
+                            <span class="button__text">Shop Item</span>
+                            <span class="button__icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                        </button>
+                        <img src="/images/pexels-sneepcrew-12730128.jpg" alt="shoe">
+                       </div>
+                        
+                        <div class="bbox">
+                            <button type="button" class="button" onclick="arrivalProduct5()">
+                            <span class="button__text">Shop Item</span>
+                            <span class="button__icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                        </button>
+                        <img src="/images/pexels-saad-alawi-123396395-9986256.jpg" alt="shoe">
+                        </div>
+                        
+                        
+                        <div class="bbox">
+                            <button type="button" class="button" onclick="arrivalProduct6()">
+                            <span class="button__text">Shop Item</span>
+                            <span class="button__icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                        </button>
+                        <img src="/images/pexels-perfect-lens-11924646.jpg" alt="shoe">
+                        </div>
+
+                        <div class="bbox">
+                            <button type="button" class="button" onclick="arrivalProduct7()">
+                            <span class="button__text">Shop Item</span>
+                            <span class="button__icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                        </button>
+                        <img src="/images/pexels-perfect-lens-8268989.jpg" alt="shoe">
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="family">
+            <label class="family-matter">Family Offer</label>
+            <div class="family-data">
+                <div class="family-boxs">
+                    <div class="family-box">
+                        <img src="/images/pexels-ron-lach-9486184.jpg" alt="family-img">
+                    </div>
+                    <div class="family-box">
+                        <video autoplay muted loop>
+                            <source src="/images/9486440-uhd_2160_4096_25fps.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+                <div class="family-bottom">
+                    <label class="family-bottom-text1">Air Jordan 4RM</label><br>
+                    <label class="family-bottom-text2">Morning Easy</label>
+                    <button type="button" class="button" onclick="goToCategory('Family')">
+                        <span class="button__text">Shop Item</span>
+                        <span class="button__icon"><i class="fa-solid fa-cart-shopping"></i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="products">
+            <label class="products-matter">Classics Spotlight</label>
+            <div class="products-data">
+                <div class="products-mainbox" id="products-mainbox">
+
+                    
+                    <script>
+                    
+                    function fetchProducts() {
+                        fetch('getAllProductsWithImages') // Update this with your actual API endpoint
+                            .then(response => response.json())
+                            .then(products => {
+                                console.log(products);
+                                allProducts = products; // Store globally
+                                
+                                displayProducts(products);
+
+                            })
+                            .catch(error => console.error("Error fetching products:", error));
+                    }
+                    
+                    function displayProducts(filteredProducts) {
+                        const productList = document.getElementById("products-mainbox");
+                        productList.innerHTML = ""; // Clear previous products
+
+                        if (filteredProducts.length === 0) {
+                            productList.innerHTML = "<p>No products found.</p>";
+                            return;
+                        }
+
+                        filteredProducts.forEach(product => {
+                        	const productDiv = document.createElement('div');
+                            productDiv.classList.add('products-box');
+                            productDiv.onclick = () => {
+                            	const loc = product.id;
+                            	usercheck(loc);
+    						   // window.location.href = `usersingleproduct.html?id=${product.id}`;
+    						};
+
+                            productDiv.innerHTML = `
+                            
+                            
+                            	<div class="product-img">
+	                                <img src="${product.firstImageUrl}" alt="shoe">
+	                            </div>
+	                            <div class="product-info">
+	                                <label class="product-text1">${product.productName}</label><br>
+	                                <label class="product-text2">${product.gender}</label><br>
+	                                <label class="product-text3">₹${product.offerPrice}</label>
+	                            </div>
+                            `;
+
+
+                            productList.appendChild(productDiv);
+                        });
+                    }
+                    
+                    
+                    fetchProducts();
+                    
+                    </script>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="sport">
+            <label class="sport-matter">Classics Spotlight</label>
+            <div class="sport-data">
+                <div class="sport-mainbox">
+                    <div class="sport-box">
+                        <div class="sport-img">
+                            <img src="/images/pexels-cottonbro-7186620.jpg" alt="shoe">
+                            <button class="pro-btn" onclick="goToCategory('Sport')">Shop</button>
+                        </div>
+                    </div>
+                    <div class="sport-box">
+                        <div class="sport-img">
+                            <img src="/images/pexels-gonchifacello-1432034.jpg" alt="shoe">
+                            <button class="pro-btn" onclick="goToCategory('Sport')">Shop</button>
+                        </div>
+
+                    </div>
+                    <div class="sport-box">
+                        <div class="sport-img">
+                            <img src="/images/pexels-rdne-7188095.jpg" alt="shoe">
+                            <button class="pro-btn" onclick="goToCategory('Sport')">Shop</button>
+                        </div>
+                        
+                    </div>
+                    <div class="sport-box">
+                        <div class="sport-img">
+                            <img src="/images/pexels-mahe-haroutinian-322834-1804075.jpg" alt="shoe">
+                            <button class="pro-btn" onclick="goToCategory('Sport')">Shop</button>
+                        </div>
+                        
+                    </div>
+                    <div class="sport-box">
+                        <div class="sport-img">
+                            <img src="/images/pexels-shkrabaanthony-5878673.jpg" alt="shoe">
+                            <button class="pro-btn" onclick="goToCategory('Sport')">Shop</button>
+                        </div>
+                        
+                    </div>
+                    <div class="sport-box">
+                        <div class="sport-img">
+                            <img src="/images/pexels-karolina-grabowska-4498555.jpg" alt="shoe">
+                            <button class="pro-btn" onclick="goToCategory('Sport')">Shop</button>
+                        </div>
+                        
+                    </div>
+                    <div class="sport-box">
+                        <div class="sport-img">
+                            <img src="/images/pexels-olly-3763869.jpg" alt="shoe">
+                            <button class="pro-btn" onclick="goToCategory('Sport')">Shop</button>
+                        </div>  
+                    </div>
+                    
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="fotter" id="fotter">
+            <div class="fotter-data">
+                <div class="fotter-data-top">
+                    <div class="fotter-data-top1">
+                        <label class="fotter-data-top1-head1">Products</label><br>
+                        <ul>
+                            <li><a onclick="usercheck(92)">WMNS Air Jordan 1 Mid SE</a></li>
+                            <li><a onclick="usercheck(93)">WMNS Air Jordan 1 Low</a></li>
+                            <li><a onclick="usercheck(95)">WMNS Air Jordan 1 Low SE</a></li>
+                            <li><a onclick="usercheck(96)">Air Jordan 1 Low</a></li>
+                            <li><a onclick="usercheck(100)">Jordan 1 Mid RM EasyOn (TD)</a></li>
+                            <li><a onclick="usercheck(104)">Nike Court Borough Low Recraft</a></li>
+                            <li><a onclick="usercheck(107)">Nike SB Dunk Low</a></li>
+                            
+                        </ul>
+                    </div>
+                    <div class="fotter-data-top2">
+                        <label class="fotter-data-top2-head1">Help</label><br>
+                        <ul>
+                            <li>Get Help</li>
+                            <li>Order Status</li>
+                            <li>Payment Status</li>
+                            <li>Return Policy</li>
+                        </ul>
+                    </div>
+                    <div class="fotter-data-top3">
+                        <label class="fotter-data-top3-head1">Company</label><br>
+                        <ul>
+                            <li>My Customers</li>
+                            <li>Our Partners</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fotter-data-bottom">
+                    <div class="fotter-data-bottom1">
+                        <label class="fotter-data-bootom-text1">© 2024 Nike, Inc. All rights reserved</label> <label class="fotter-data-bootom-text2">Nike Privacy Policy</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <script src="mainscript.js"></script>
+    
+    
+    
+    <script>
+    
+    function goToCategory(category) {
+        // Redirect to the userproducts page with selected category
+        
+        fetch('/api/userinfo')
+        .then(res => {
+          if (res.ok) return res.json();
+          else throw new Error('Not user');
+        })
+        .then(user => {
+          // User is logged in
+          console.log("Logged in as User:", user.name);
+          window.location.href = `userproducts.html?category=${encodeURIComponent(category)}`;        
+          })
+        .catch(() => {
+          // Neither admin nor user logged in
+          alert("Not logged in. Redirecting to login page.");
+          window.location.href = '/userlogin.html';
+        });
+      }
+    
+
+    
+    function arrivalProduct1(){
+    	//window.location.href = `usersingleproduct.html?id=112`;
+    	const loc = 112;
+    	usercheck(loc);
+    }
+    function arrivalProduct2(){
+    	//window.location.href = `usersingleproduct.html?id=111`;
+    	const loc = 111;
+    	usercheck(loc);
+    }
+    function arrivalProduct3(){
+    	//window.location.href = `usersingleproduct.html?id=113`;
+    	const loc = 113;
+    	usercheck(loc);
+    }
+    function arrivalProduct5(){
+    	//window.location.href = `usersingleproduct.html?id=103`;
+    	const loc = 103;
+    	usercheck(loc);
+    }
+    function arrivalProduct6(){
+    	//window.location.href = `usersingleproduct.html?id=114`;
+    	const loc = 114;
+    	usercheck(loc);
+    }
+    function arrivalProduct7(){
+    	//window.location.href = `usersingleproduct.html?id=110`;
+    	const loc = 110;
+    	usercheck(loc);
+    }
+    
+    function usercheck(loc){
+    	fetch('/api/userinfo')
+        .then(res => {
+          if (res.ok) return res.json();
+          else throw new Error('Not user');
+        })
+        .then(user => {
+          // User is logged in
+          console.log("Logged in as User:", user.name);
+          window.location.href = `/usersingleproduct.html?id=${loc}`;
+        })
+        .catch(() => {
+          // Neither admin nor user logged in
+          alert("Not logged in. Redirecting to login page.");
+          window.location.href = '/userlogin.html';
+        });
+    }
+    
+    function usercartcheck(){
+    	fetch('/api/userinfo')
+        .then(res => {
+          if (res.ok) return res.json();
+          else throw new Error('Not user');
+        })
+        .then(user => {
+          // User is logged in
+          console.log("Logged in as User:", user.name);
+          window.location.href = `/usercart.html?id=${user.id}`;
+        })
+        .catch(() => {
+          // Neither admin nor user logged in
+          alert("Not logged in. Redirecting to login page.");
+          window.location.href = '/userlogin.html';
+        });
+    }
+    
+	  function goToProducts() {
+		    // First, check if admin is logged in
+		    fetch('/api/admininfo')
+		      .then(res => {
+		        if (res.ok) return res.json();
+		        else throw new Error('Not admin');
+		      })
+		      .then(admin => {
+		        // Admin is logged in
+		        console.log("Logged in as Admin:", admin.name);
+		        window.location.href = '/product.html';
+		      })
+		      .catch(() => {
+		        // If not admin, check if user is logged in
+		        fetch('/api/userinfo')
+		          .then(res => {
+		            if (res.ok) return res.json();
+		            else throw new Error('Not user');
+		          })
+		          .then(user => {
+		            // User is logged in
+		            console.log("Logged in as User:", user.name);
+		            window.location.href = '/userproducts.html';
+		          })
+		          .catch(() => {
+		            // Neither admin nor user logged in
+		            alert("Not logged in. Redirecting to login page.");
+		            window.location.href = '/userlogin.html';
+		          });
+		      });
+		  }
+</script>
+    
+</body>
+</html>
