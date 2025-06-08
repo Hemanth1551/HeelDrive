@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        table {
+            width: 80%;
+            margin: auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        input {
+            padding: 8px;
+            margin: 10px;
+            width: 250px;
+        }
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        let allProducts = []; // Store all products globally
+
+        async function fetchProducts() {
+            const errorElement = document.getElementById('error');
+            const tableBody = document.getElementById('productsTable');
+
+            errorElement.innerText = ""; // Clear previous errors
+            tableBody.innerHTML = "<tr><td colspan='11'>Loading products...</td></tr>"; // Show loading message
+
+            try {
+                const response = await fetch('/getAllProducts'); // Calls your Spring Boot API
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                allProducts = await response.json(); // Store products in global variable
+
+                displayProducts(allProducts); // Display all products initially
+            } catch (error) {
+                console.error("Error fetching products:", error);
+                tableBody.innerHTML = ""; // Clear table on error
+                errorElement.innerText = "Failed to load products.";
+            }
+        }
+
+        function displayProducts(products) {
+            const tableBody = document.getElementById('productsTable');
+            tableBody.innerHTML = ""; // Clear previous data
+
+            if (products.length === 0) {
+                tableBody.innerHTML = "<tr><td colspan='11'>No products found.</td></tr>";
+                return;
+            }
+
+            products.forEach(product => {
+                let imageUrl = "default.jpg"; // Fallback image
+                if (product.imageUrls && product.imageUrls.length > 0) {
+                    imageUrl = product.imageUrls[0]; // ✅ Get the first image
+                }
+
+                let row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td><img src="/src/main/webapp/product_images/${product.imageUrls[0]}" alt="Product"></td>
+                    <td>${product.productId}</td>
+                    <td>${product.productName}</td>
+                    <td>${product.category}</td>
+                    <td>${product.size}</td>
+                    <td>$${product.price.toFixed(2)}</td>
+                    <td>${product.stockQuantity}</td>
+                    <td>${product.date}</td>
+                    <td>${product.brand}</td>
+                    <td>${product.gender}</td>
+                    <td><button onclick="deleteProduct('${product.productId}')">Delete</button></td>
+                `;
+            });
+        }
+
+        function searchProductById() {
+            const productId = document.getElementById('productIdInput').value.trim();
+
+            if (productId === "") {
+                displayProducts(allProducts); // If input is empty, show all products again
+                return;
+            }
+
+            const filteredProduct = allProducts.filter(product => product.productId.toString() === productId);
+            displayProducts(filteredProduct);
+        }
+
+        function deleteProduct(productId) {
+            alert(`Delete product with ID: ${productId}`); 
+            // You can add an API call here to delete the product from the backend
+        }
+
+        window.onload = fetchProducts;
+    </script>
+</head>
+<body>
+    <h1>Products List</h1>
+
+    <input type="text" id="productIdInput" placeholder="Enter Product ID" oninput="searchProductById()">
+    <p id="error" style="color: red;"></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Size</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Date</th>
+                <th>Brand</th>
+                <th>Gender</th>
+                <th>Operation</th>
+            </tr>
+        </thead>
+        <tbody id="productsTable">
+            <!-- Data will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+</body>
+</html>

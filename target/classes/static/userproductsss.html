@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Product</title>
+</head>
+<body>
+    <h2>Update Product</h2>
+    <form id="updateForm">
+        <label>Product Name: <input type="text" id="product_name" required></label><br>
+        <label>Brand: <input type="text" id="brand" required></label><br>
+        <label>Category: <input type="text" id="category" required></label><br>
+        <label>Color: <input type="text" id="color" required></label><br>
+        <label>Date: <input type="date" id="date" required></label><br>
+        <label>Description: <textarea id="description" required></textarea></label><br>
+        <label>Gender: <input type="text" id="gender" required></label><br>
+        <label>Old Price: <input type="number" id="old_price" required></label><br>
+        <label>Offer Price: <input type="number" id="offer_price" required></label><br>
+        <label>Size: <input type="text" id="size" required></label><br>
+        <label>Stock Quantity: <input type="number" id="stock_quantity" required></label><br>
+        <button type="submit">Update Product</button>
+    </form>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get("id");
+
+        const apiUrl = `http://localhost:8081/productupdate/${productId}`;
+
+        fetch(`/getProduct/${productId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(product => {
+            const products = Array.isArray(product) ? data : [product];
+            console.log(products[0].product_name);
+            
+            document.getElementById("product_name").value = products[0].product_name;
+            document.getElementById("brand").value = products[0].brand;
+            document.getElementById("category").value = products[0].category;
+            document.getElementById("color").value = products[0].color;
+            document.getElementById("date").value = products[0].date;
+            document.getElementById("description").value = products[0].description;
+            document.getElementById("gender").value = products[0].gender;
+            document.getElementById("old_price").value = products[0].old_price;
+            document.getElementById("offer_price").value = products[0].offer_price;
+            document.getElementById("size").value = products[0].size;
+            document.getElementById("stock_quantity").value = products[0].stock_quantity;
+        });
+        
+        
+        
+        document.getElementById("updateForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const updatedProduct = {
+                product_name: document.getElementById("product_name").value,
+                brand: document.getElementById("brand").value,
+                category: document.getElementById("category").value,
+                color: document.getElementById("color").value,
+                date: document.getElementById("date").value,
+                description: document.getElementById("description").value,
+                gender: document.getElementById("gender").value,
+                old_price: parseFloat(document.getElementById("old_price").value),
+                offer_price: parseFloat(document.getElementById("offer_price").value),
+                size: document.getElementById("size").value,
+                stock_quantity: parseInt(document.getElementById("stock_quantity").value)
+            };
+
+            fetch(apiUrl, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(updatedProduct)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Product updated successfully");
+                    window.location.href = "all.html";
+                } else {
+                    alert("Error updating product");
+                }
+            });
+        });
+        
+    </script>
+</body>
+</html>

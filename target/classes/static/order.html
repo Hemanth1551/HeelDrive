@@ -1,0 +1,764 @@
+<!DOCTYPE html>c
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="ss1.css">
+	<script src="https://unpkg.com/phosphor-icons"></script>
+	<title>Admin Order Tab</title>
+</head>
+<body>
+	<div class="app">
+		<header class="app-header">
+			<div class="app-header-logo">
+				<div class="logo">
+					<span class="logo-icon">
+						<img src="/images/logo.png" />
+					</span>
+					<h1 class="logo-title">
+						<span>Heel_Drive</span>
+						<span>Shoes</span>
+					</h1>
+				</div>
+			</div>
+			<div class="app-header-navigation">
+				<div class="tabs">
+					<!-- <a href="#">
+						DashBoard
+					</a> -->
+					<a href="address.html" >
+						Address
+					</a>
+					<a href="cart.html">
+						Carts
+					</a>
+					<a href="users.html">
+						Users
+					</a>
+					<a href="order.html" class="active">
+						Orders
+					</a>
+					<a href="product.html">
+						Products
+					</a>
+				</div>
+			</div>
+			<div class="app-header-actions">
+				<button class="user-profile">
+					<span id="adminname"></span>
+					<span>
+						<img src="" id="adminimg"/>
+					</span>
+				</button>
+				<div class="app-header-actions-buttons">
+					<input class="user-search" id="order-search" type="text" placeholder="Search Orders By User Id" oninput="filterOrderByUserId()">
+				</div>
+			</div>
+			<div class="app-header-mobile">
+				<button class="icon-button large">
+					<i class="ph-list"></i>
+				</button>
+			</div>
+	
+		</header>
+		<div class="app-body">
+			<div class="app-body-navigation">
+				<nav class="navigation">
+					<a href="Dashboard.html">
+						<i class="ph-browsers"></i>
+						<span>Dashboard</span>
+					</a>
+					<a href="address.html">
+						<i class="ph ph-house"></i>
+						<span>Address</span>
+					</a>
+					<a href="cart.html">
+						<i class="ph ph-credit-card"></i>
+						<span>Carts</span>
+					</a>
+					<a href="users.html">
+						<i class="ph ph-user"></i>
+						<span>Users</span>
+					</a>
+					<a href="order.html">
+						<i class="ph ph-bag"></i>
+						<span>Orders</span>
+					</a>
+					<a href="product.html">
+						<i class="ph ph-package"></i>
+						<span>Products</span>
+					</a>
+					<a href="payment.html">
+						<i class="ph ph-currency-inr"></i>
+						<span>Payments</span>
+					</a>
+					<a href="profile.html">
+						<i class="ph ph-user-circle"></i>
+						<span>Profile</span>
+					</a>
+				</nav>
+				<footer class="footer">
+					<h1>Heel Drive<small>©</small></h1>
+					<div>
+						Heel Drive ©<br />
+						All Rights Reserved 2025
+					</div>
+				</footer>
+			</div>
+			<div class="app-body-main-content">
+                <section class="service-section">
+                    <div class="transfer-section-header">
+                        <h2>Order Details</h2>
+                        <div class="filter-options">
+                            <p>Filter selected: more than 100 $</p>
+                            <button class="icon-button">
+                                <i class="ph-funnel"></i>
+                            </button>
+                            <button class="icon-button">
+                                <i class="ph-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="transfers" style="height: 200px;">
+                        
+                        <table class="transfers-card" id="order-table">
+                            <thead>
+                                <tr style="background-color: #313131;">
+                                    <th>Order ID</th>
+                                    <th>user Id</th>
+                                    <th>Address Id</th>
+                                    <th>Total Price</th>
+                                    <th>Status</th>
+                                    <th>Payment Status</th>
+                                    <th>CreatedAt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+
+
+					<!-- <h2>Order Items</h2> -->
+					<div class="app-header-actions-buttons" style="width: 100%; display: flex; justify-content: space-between; border-left: none; margin-left: -30px;">
+						<h2>Order Items</h2>
+						<input class="user-search" id="item-search" type="text" placeholder="Search Items By Order Id" oninput="filterItemsByOrderId()" style="margin: 20px;">
+					</div>
+					<div class="transfers" style="height: 200px;">
+                        
+                        <table class="transfers-card" id="item-table">
+                            <thead>
+                                <tr style="background-color: #313131;">
+                                    <th>ID</th>
+                                    <th>Order Id</th>
+                                    <th>Product Id</th>
+                                    <th>Quantity</th>
+                                    <th>PerUnit Price</th>
+                                    <th>Total Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+
+            </div>
+			<div class="app-body-sidebar">
+
+			</div>
+
+            
+		</div>
+
+        
+	</div>
+
+	<script>
+        // Function to color the "Status" column dynamically
+        function applyStatusColors() {
+    const statusCells = document.querySelectorAll(".op");
+    const paymentCells = document.querySelectorAll(".pay");
+
+    statusCells.forEach(cell => {
+        const statusText = cell.textContent.trim().toLowerCase();
+
+        switch (statusText) {
+            case "pending":
+                cell.style.color = "yellow";
+                break;
+            case "canceled":
+                cell.style.color = "red";
+                break;
+            case "delivered":
+                cell.style.color = "green";
+                break;
+            case "shipped":
+                cell.style.color = "blue";
+                break;
+            default:
+                cell.style.color = "white"; // Default color for unknown statuses
+        }
+    });
+
+    paymentCells.forEach(cell => {
+        const paymentText = cell.textContent.trim().toLowerCase();
+
+        switch (paymentText) {
+            case "paid":    // Fixed case sensitivity
+                cell.style.color = "green";
+                cell.style.background = "transparent";
+                break;
+            case "unpaid":
+                cell.style.color = "red";
+                break;
+            case "refunded":
+                cell.style.color = "yellow";
+                break;
+            default:
+                cell.style.color = "white";
+        }
+    });
+}
+
+// Apply colors when the page loads
+//window.onload = applyStatusColors;
+
+
+function fetchOrders() {
+    fetch('/api/order')
+        .then(response => response.json())
+        .then(orders => {
+            console.log("Fetched carts:", orders);
+
+            // Ensure addresses is an array before filtering
+            const tableBody = document.getElementById('order-table').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; 
+            
+            orders.forEach(order =>{
+            	const row = document.createElement('tr');
+            	
+            	//orderid
+            	const orderid = document.createElement('td');
+            	orderid.textContent = order.id;
+                row.appendChild(orderid);
+                
+                //userid 
+				const userid = document.createElement('td');
+                userid.textContent = order.userid;
+                row.appendChild(userid);
+                
+              	//addressid 
+				const addressid = document.createElement('td');
+				addressid.textContent = order.addressid;
+                row.appendChild(addressid);
+                
+                //totalprice
+                const totalprice = document.createElement('td');
+                totalprice.textContent = order.totalprice;
+                row.appendChild(totalprice);
+                
+                //status
+                //const status = document.createElement('td');
+                //status.textContent = order.status;
+                //status.classList.add('status');
+                //row.appendChild(status);
+                
+                
+                
+                // status (as a dropdown)
+				const status = document.createElement('td');
+				const statusSelect = document.createElement('select');
+				statusSelect.classList.add('status');
+				
+				['pending', 'delivered', 'canceled','shipped'].forEach(optionValue => {
+				    const option = document.createElement('option');
+				    option.classList.add('op');
+				    option.value = optionValue;
+				    option.text = optionValue.charAt(0).toUpperCase() + optionValue.slice(1);
+				    if (order.status === optionValue) {
+				        option.selected = true;
+				    }
+				    statusSelect.appendChild(option);
+				});
+				
+				// Optional: handle dropdown change to send update to backend
+				statusSelect.addEventListener('change', () => {
+				    const newStatus = statusSelect.value;
+				    // Send update to server
+				    fetch(`/api/order/${order.id}`, {
+				        method: 'PUT',
+				        headers: {
+				            'Content-Type': 'application/json',
+				        },
+				        body: JSON.stringify({ status: newStatus }),
+				    })
+				    .then(response => {
+				        if (response.ok) {
+				            console.log('Status updated successfully.');
+				            applyStatusColors(); // optional re-color
+				        } else {
+				            console.error('Failed to update status.');
+				        }
+				    });
+				});
+				
+				status.appendChild(statusSelect);
+				row.appendChild(status);
+
+                
+                
+                
+                
+              	//paymentstatus
+                const paymentstatus = document.createElement('td');
+				const paymentSelect = document.createElement('select');
+				paymentSelect.classList.add('status');
+				
+				// Create options and set the selected one
+				['Pending(COD)', 'paid', 'unpaid', 'refunded'].forEach(paymentvalue => {
+				    const payelement = document.createElement('option');
+				    payelement.classList.add('pay');
+				    payelement.value = paymentvalue;
+				    payelement.text = paymentvalue.charAt(0).toUpperCase() + paymentvalue.slice(1);
+				
+				    if (order.paymentstatus === paymentvalue) {
+				        payelement.selected = true;
+				    }
+				
+				    paymentSelect.appendChild(payelement);
+				});
+              	
+                paymentSelect.addEventListener('change', () => {
+                    const newpayselect = paymentSelect.value;
+                    fetch(`/api/order/${order.id}`, {
+                    	method : 'PUT',
+                    	headers : {
+                    		'Content-Type': 'application/json',
+                    	},
+                    	body : JSON.stringify({paymentstatus : newpayselect})
+                    })
+                    .then(response => {
+                    	if(response.ok){
+                    		console.log("done")
+				            applyStatusColors(); // optional re-color
+                    	}
+                    	else{
+                    		console.error("none")
+                    	}
+                    	
+                    });
+                });
+
+              	
+              	
+                // paymentstatus.textContent = order.paymentstatus;
+                paymentstatus.appendChild(paymentSelect);
+				row.appendChild(paymentstatus);
+                
+                
+                
+                
+                
+              	//createdat
+                const createdat = document.createElement('td');
+                createdat.textContent = order.createdat;
+                row.appendChild(createdat);
+
+                tableBody.appendChild(row);
+            })
+            
+            applyStatusColors(); // ✅ Call after table is populated
+            
+});
+}
+
+
+function filterOrderByUserId() {
+    const userid = document.getElementById('order-search').value.trim();
+    console.log(userid);
+
+    if (userid === '') {
+        console.log("There is no user by that ID");
+        return;
+    }
+
+    fetch('/api/order')
+        .then(response => response.json())
+        .then(orders => {
+            const tableBody = document.getElementById('order-table').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+
+            // Filter orders correctly
+            const filterorders = orders.filter(order => 
+                order?.userid !== undefined && order?.userid !== null && 
+                order.userid.toString() === userid.toString()
+            );
+
+            // Populate the table with filtered orders
+            filterorders.forEach(order => {
+                const row = document.createElement('tr');
+
+                // Order ID
+                const orderidCell = document.createElement('td');
+                orderidCell.textContent = order.id;
+                row.appendChild(orderidCell);
+
+                // User ID
+                const useridCell = document.createElement('td');
+                useridCell.textContent = order.userid;
+                row.appendChild(useridCell);
+
+                // Total Price
+                const totalpriceCell = document.createElement('td');
+                totalpriceCell.textContent = order.totalprice;
+                row.appendChild(totalpriceCell);
+
+             // status (as a dropdown)
+				const status = document.createElement('td');
+				const statusSelect = document.createElement('select');
+				statusSelect.classList.add('status');
+				
+				['pending', 'delivered', 'canceled','shipped'].forEach(optionValue => {
+				    const option = document.createElement('option');
+				    option.classList.add('op');
+				    option.value = optionValue;
+				    option.text = optionValue.charAt(0).toUpperCase() + optionValue.slice(1);
+				    if (order.status === optionValue) {
+				        option.selected = true;
+				    }
+				    statusSelect.appendChild(option);
+				});
+				
+				// Optional: handle dropdown change to send update to backend
+				statusSelect.addEventListener('change', () => {
+				    const newStatus = statusSelect.value;
+				    // Send update to server
+				    fetch(`/api/order/${order.id}`, {
+				        method: 'PUT',
+				        headers: {
+				            'Content-Type': 'application/json',
+				        },
+				        body: JSON.stringify({ status: newStatus }),
+				    })
+				    .then(response => {
+				        if (response.ok) {
+				            console.log('Status updated successfully.');
+				            applyStatusColors(); // optional re-color
+				        } else {
+				            console.error('Failed to update status.');
+				        }
+				    });
+				});
+				
+				status.appendChild(statusSelect);
+				row.appendChild(status);
+
+                
+                
+                
+                
+              	//paymentstatus
+                const paymentstatus = document.createElement('td');
+				const paymentSelect = document.createElement('select');
+				paymentSelect.classList.add('status');
+				
+				// Create options and set the selected one
+				['paid', 'unpaid', 'refunded'].forEach(paymentvalue => {
+				    const payelement = document.createElement('option');
+				    payelement.classList.add('pay');
+				    payelement.value = paymentvalue;
+				    payelement.text = paymentvalue.charAt(0).toUpperCase() + paymentvalue.slice(1);
+				
+				    if (order.paymentstatus === paymentvalue) {
+				        payelement.selected = true;
+				    }
+				
+				    paymentSelect.appendChild(payelement);
+				});
+              	
+                paymentSelect.addEventListener('change', () => {
+                    const newpayselect = paymentSelect.value;
+                    fetch(`/api/order/${order.id}`, {
+                    	method : 'PUT',
+                    	headers : {
+                    		'Content-Type': 'application/json',
+                    	},
+                    	body : JSON.stringify({paymentstatus : newpayselect})
+                    })
+                    .then(response => {
+                    	if(response.ok){
+                    		console.log("done")
+				            applyStatusColors(); // optional re-color
+                    	}
+                    	else{
+                    		console.error("none")
+                    	}
+                    	
+                    });
+                });
+
+              	
+              	
+                // paymentstatus.textContent = order.paymentstatus;
+                paymentstatus.appendChild(paymentSelect);
+				row.appendChild(paymentstatus);
+
+                // Created At
+                const createdatCell = document.createElement('td');
+                createdatCell.textContent = order.createdat;
+                row.appendChild(createdatCell);
+
+                tableBody.appendChild(row);
+            });
+            applyStatusColors(); // ✅ Call after table is populated
+
+        })
+        .catch(error => console.error("Error fetching orders:", error));
+}
+
+
+function fetchOrdersItems() {
+    fetch('/api/orderitem')
+        .then(response => response.json())
+        .then(orderitems => {
+            console.log("Fetched carts:", orderitems);
+            
+            const tableBody = document.getElementById('item-table').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; 
+            
+            orderitems.forEach(orderitem =>{
+            	const row = document.createElement('tr');
+            	
+            	//orderitemid
+            	const orderitemid = document.createElement('td');
+            	orderitemid.textContent = orderitem.id;
+                row.appendChild(orderitemid);
+                
+                //orderid 
+					const orderid = document.createElement('td');
+					orderid.textContent = orderitem.orderid;
+                row.appendChild(orderid);
+                
+                //productid
+                const productid = document.createElement('td');
+                productid.textContent = orderitem.productid;
+                row.appendChild(productid);
+                
+                //quantity
+                const quantity = document.createElement('td');
+                quantity.textContent = orderitem.quantity;
+                row.appendChild(quantity);
+                
+                
+              	//perunitprice
+                const perunitprice = document.createElement('td');
+                perunitprice.textContent = orderitem.perunitprice;
+                row.appendChild(perunitprice);
+                
+                
+              	//totalprice
+                const totalprice = document.createElement('td');
+                totalprice.textContent = orderitem.totalprice;
+                row.appendChild(totalprice);
+
+                tableBody.appendChild(row);
+            })
+            
+        });
+}
+
+
+
+function filterItemsByOrderId() {
+    const orderid = document.getElementById('item-search').value.trim();
+    console.log(orderid);
+
+    if (orderid === '') {
+        console.log("There is no user by that ID");
+        return;
+    }
+
+    fetch('/api/orderitem')
+        .then(response => response.json())
+        .then(orderitems => {
+            const tableBody = document.getElementById('item-table').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+
+            // Filter orders correctly
+            const filterorderitems = orderitems.filter(item => 
+            	item?.orderid !== undefined && item?.orderid !== null && 
+            	item.orderid.toString() === orderid.toString()
+            );
+
+            // Populate the table with filtered orders
+            filterorderitems.forEach(orderitem => {
+				const row = document.createElement('tr');
+            	
+            	//orderitemid
+            	const orderitemid = document.createElement('td');
+            	orderitemid.textContent = orderitem.id;
+                row.appendChild(orderitemid);
+                
+                //orderid 
+					const orderid = document.createElement('td');
+					orderid.textContent = orderitem.orderid;
+                row.appendChild(orderid);
+                
+                //productid
+                const productid = document.createElement('td');
+                productid.textContent = orderitem.productid;
+                row.appendChild(productid);
+                
+                //quantity
+                const quantity = document.createElement('td');
+                quantity.textContent = orderitem.quantity;
+                row.appendChild(quantity);
+                
+                
+              	//perunitprice
+                const perunitprice = document.createElement('td');
+                perunitprice.textContent = orderitem.perunitprice;
+                row.appendChild(perunitprice);
+                
+                
+              	//totalprice
+                const totalprice = document.createElement('td');
+                totalprice.textContent = orderitem.totalprice;
+                row.appendChild(totalprice);
+
+                tableBody.appendChild(row);
+            });
+
+        })
+        .catch(error => console.error("Error fetching orders:", error));
+}
+
+let admindata = {};
+
+async function fetchAdminInfo() {
+  try {
+    const adminRes = await fetch('/api/admininfo');
+
+    if (!adminRes.ok) {
+      throw new Error('Failed to fetch admin info');
+    }
+
+    const data = await adminRes.json();
+
+    
+    // Update DOM
+    document.getElementById("adminname").innerText = data.name;
+    document.getElementById("adminimg").src = `/api/getAdminImage/${data.id}`;
+
+    console.log("Admin Data:", data);
+
+  } catch (error) {
+    console.error('Error fetching admin data:', error.message);
+  }
+}
+
+// Call function on load
+fetchAdminInfo();
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+	fetch('/api/admininfo')
+    .then(res => {
+      if (res.ok) return res.json();
+      else throw new Error('Not Admin');
+    })
+    .then(user => {
+      // User is logged in
+      console.log("Logged in as Admin:", user.name);
+      fetchOrders();
+      fetchOrdersItems();
+
+      //window.location.href = `/usersingleproduct.html?id=${loc}`;
+    })
+    .catch(() => {
+      // Neither admin nor user logged in
+      alert("Not logged in. Redirecting to login page.");
+      window.location.href = '/adminlogin.html';
+    });
+});
+
+
+// Call the function when the page loads
+//window.onload = function () {
+//    fetchOrders();
+//    fetchOrdersItems();
+//};
+
+
+    </script>
+</body>
+</html>
+
+<style>
+
+.status {
+    color: black;
+    background: transparent;
+}
+.status option[value="pending"] {
+    background: #1f1f1f;
+    color: yellow;
+}
+.status option[value="delivered"] {
+    background: #1f1f1f;
+
+   color: green;
+}
+.status option[value="canceled"] {
+    color: red;
+        background: #1f1f1f;
+    
+}
+.status option[value="shipped"] {
+    color: blue;
+        background: #1f1f1f;
+    
+}
+
+
+/*
+    .status-active {
+	color: green;
+	font-weight: bold;
+}
+.status-inactive {
+	color: red;
+	font-weight: bold;
+}
+*/
+
+@media (min-width: 1025px) and (max-width: 1600px){ 
+	.service-section{
+		width: 1000px;
+	}
+	.service-section table{
+		width: 1000px;
+	}
+}
+
+
+/* Default styles for the table */
+.transfers-card {
+    width: 100%;
+    border-collapse: collapse;
+}
+.status, .pay {
+            padding: 5px;
+            border-radius: 5px;
+            color: white;
+                    background: #1f1f1f;
+            
+        }
+
+
+</style>

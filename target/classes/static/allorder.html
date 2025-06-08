@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Products</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        .product-image {
+            width: 100px;
+            height: 100px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .action-buttons button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Products</h1>
+    <input type="text" id="order-search" placeholder="Enter user ID" oninput="filterOrderByUserId()">
+    <table id="order-table">
+        <thead>
+            <tr>
+            	<th>Order ID</th>
+                <th>user Id</th>
+                <th>Total Price</th>
+				<th>Status</th>
+                <th>Payment Status</th>
+                <th>CreatedAt</th>                                                       
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Product rows will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+    
+    <input type="text" id="item-search" placeholder="Enter order ID" oninput="filterItemsByOrderId()">
+    <table id="item-table">
+        <thead>
+            <tr>
+            	<th>ID</th>
+                <th>Order Id</th>
+                <th>Product Id</th>
+                <th>Quantity</th>
+                <th>PerUnit Price</th>
+                <th>Total Price</th>                                                            
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Product rows will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+    function fetchOrders() {
+        fetch('/api/order')
+            .then(response => response.json())
+            .then(orders => {
+                console.log("Fetched carts:", orders);
+
+                // Ensure addresses is an array before filtering
+                const tableBody = document.getElementById('order-table').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = ''; 
+                
+                orders.forEach(order =>{
+                	const row = document.createElement('tr');
+                	
+                	//orderid
+                	const orderid = document.createElement('td');
+                	orderid.textContent = order.id;
+                    row.appendChild(orderid);
+                    
+                    //userid 
+ 					const userid = document.createElement('td');
+                    userid.textContent = order.userid;
+                    row.appendChild(userid);
+                    
+                    //totalprice
+                    const totalprice = document.createElement('td');
+                    totalprice.textContent = order.totalprice;
+                    row.appendChild(totalprice);
+                    
+                    //status
+                    const status = document.createElement('td');
+                    status.textContent = order.status;
+                    row.appendChild(status);
+                    
+                    
+                  	//paymentstatus
+                    const paymentstatus = document.createElement('td');
+                    paymentstatus.textContent = order.paymentstatus;
+                    row.appendChild(paymentstatus);
+                    
+                    
+                  	//createdat
+                    const createdat = document.createElement('td');
+                    createdat.textContent = order.createdat;
+                    row.appendChild(createdat);
+  
+                    tableBody.appendChild(row);
+                })
+                
+    });
+   }
+    
+    
+    function filterOrderByUserId() {
+        const userid = document.getElementById('order-search').value.trim();
+        console.log(userid);
+
+        if (userid === '') {
+            console.log("There is no user by that ID");
+            return;
+        }
+
+        fetch('/api/order')
+            .then(response => response.json())
+            .then(orders => {
+                const tableBody = document.getElementById('order-table').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = '';
+
+                // Filter orders correctly
+                const filterorders = orders.filter(order => 
+                    order?.userid !== undefined && order?.userid !== null && 
+                    order.userid.toString() === userid.toString()
+                );
+
+                // Populate the table with filtered orders
+                filterorders.forEach(order => {
+                    const row = document.createElement('tr');
+
+                    // Order ID
+                    const orderidCell = document.createElement('td');
+                    orderidCell.textContent = order.id;
+                    row.appendChild(orderidCell);
+
+                    // User ID
+                    const useridCell = document.createElement('td');
+                    useridCell.textContent = order.userid;
+                    row.appendChild(useridCell);
+
+                    // Total Price
+                    const totalpriceCell = document.createElement('td');
+                    totalpriceCell.textContent = order.totalprice;
+                    row.appendChild(totalpriceCell);
+
+                    // Status
+                    const statusCell = document.createElement('td');
+                    statusCell.textContent = order.status;
+                    row.appendChild(statusCell);
+
+                    // Payment Status
+                    const paymentstatusCell = document.createElement('td');
+                    paymentstatusCell.textContent = order.paymentstatus;
+                    row.appendChild(paymentstatusCell);
+
+                    // Created At
+                    const createdatCell = document.createElement('td');
+                    createdatCell.textContent = order.createdat;
+                    row.appendChild(createdatCell);
+
+                    tableBody.appendChild(row);
+                });
+
+            })
+            .catch(error => console.error("Error fetching orders:", error));
+    }
+
+    
+    function fetchOrdersItems() {
+        fetch('/api/orderitem')
+            .then(response => response.json())
+            .then(orderitems => {
+                console.log("Fetched carts:", orderitems);
+                
+                const tableBody = document.getElementById('item-table').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = ''; 
+                
+                orderitems.forEach(orderitem =>{
+                	const row = document.createElement('tr');
+                	
+                	//orderitemid
+                	const orderitemid = document.createElement('td');
+                	orderitemid.textContent = orderitem.id;
+                    row.appendChild(orderitemid);
+                    
+                    //orderid 
+ 					const orderid = document.createElement('td');
+ 					orderid.textContent = orderitem.orderid;
+                    row.appendChild(orderid);
+                    
+                    //productid
+                    const productid = document.createElement('td');
+                    productid.textContent = orderitem.productid;
+                    row.appendChild(productid);
+                    
+                    //quantity
+                    const quantity = document.createElement('td');
+                    quantity.textContent = orderitem.quantity;
+                    row.appendChild(quantity);
+                    
+                    
+                  	//perunitprice
+                    const perunitprice = document.createElement('td');
+                    perunitprice.textContent = orderitem.perunitprice;
+                    row.appendChild(perunitprice);
+                    
+                    
+                  	//totalprice
+                    const totalprice = document.createElement('td');
+                    totalprice.textContent = orderitem.totalprice;
+                    row.appendChild(totalprice);
+  
+                    tableBody.appendChild(row);
+                })
+                
+            });
+    }
+    
+    
+    
+    function filterItemsByOrderId() {
+        const orderid = document.getElementById('item-search').value.trim();
+        console.log(orderid);
+
+        if (orderid === '') {
+            console.log("There is no user by that ID");
+            return;
+        }
+
+        fetch('/api/orderitem')
+            .then(response => response.json())
+            .then(orderitems => {
+                const tableBody = document.getElementById('item-table').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = '';
+
+                // Filter orders correctly
+                const filterorderitems = orderitems.filter(item => 
+                	item?.orderid !== undefined && item?.orderid !== null && 
+                	item.orderid.toString() === orderid.toString()
+                );
+
+                // Populate the table with filtered orders
+                filterorderitems.forEach(orderitem => {
+					const row = document.createElement('tr');
+                	
+                	//orderitemid
+                	const orderitemid = document.createElement('td');
+                	orderitemid.textContent = orderitem.id;
+                    row.appendChild(orderitemid);
+                    
+                    //orderid 
+ 					const orderid = document.createElement('td');
+ 					orderid.textContent = orderitem.orderid;
+                    row.appendChild(orderid);
+                    
+                    //productid
+                    const productid = document.createElement('td');
+                    productid.textContent = orderitem.productid;
+                    row.appendChild(productid);
+                    
+                    //quantity
+                    const quantity = document.createElement('td');
+                    quantity.textContent = orderitem.quantity;
+                    row.appendChild(quantity);
+                    
+                    
+                  	//perunitprice
+                    const perunitprice = document.createElement('td');
+                    perunitprice.textContent = orderitem.perunitprice;
+                    row.appendChild(perunitprice);
+                    
+                    
+                  	//totalprice
+                    const totalprice = document.createElement('td');
+                    totalprice.textContent = orderitem.totalprice;
+                    row.appendChild(totalprice);
+
+                    tableBody.appendChild(row);
+                });
+
+            })
+            .catch(error => console.error("Error fetching orders:", error));
+    }
+
+
+    // Call the function when the page loads
+    window.onload = function () {
+	    fetchOrders();
+	    fetchOrdersItems();
+	};
+</script>
+
+</body>
+</html>

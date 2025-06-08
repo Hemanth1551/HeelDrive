@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #3399cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #287aa9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Complete Your Payment</h2>
+    <p>Click the button below to proceed</p>
+    <button id="pay-button">Pay Now</button>
+</div>
+
+<script>
+document.getElementById('pay-button').onclick = function () {
+	fetch('http://localhost:8081/api/payments/create-order?amount=1000&currency=INR', {
+	    method: 'POST'
+	})
+	    .then(response => response.json())
+	    .then(order => {
+	        const options = {
+	            key: "rzp_test_fpzCQ26MqHo9GM", // Replace with your Razorpay API Key
+	            amount: order.amount, // Amount in paise
+	            currency: order.currency,
+	            name: "Your Company",
+	            description: "Test Transaction",
+	            order_id: order.id,
+	            handler: function (response) {
+	                console.log("Razorpay Response:", response);
+	                console.log("Order Data:", order);
+
+	                alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+
+	                // Prepare payment data for backend API
+	                const paymentData = {
+	                    orderid: order.id,  // Use order ID from Razorpay
+	                    userid: 456,        // Replace with actual user ID
+	                    razorpaypaymentid: response.razorpay_payment_id,
+	                    razorpayorderid: response.razorpay_order_id,
+	                    razorpaysignature: response.razorpay_signature,
+	                    amount: order.amount / 100, // Convert paise to INR
+	                    status: "success",
+	                    createdat: new Date().toISOString().split('T')[0] // Format date as YYYY-MM-DD
+	                };
+
+	                // Call API to store payment details
+	                fetch('http://localhost:8081/api/payments/payment', {
+	                    method: 'POST',
+	                    headers: {
+	                        'Content-Type': 'application/json'
+	                    },
+	                    body: JSON.stringify(paymentData)
+	                })
+	                    .then(response => response.json())
+	                    .then(data => {
+	                        console.log("Payment Saved:", data);
+	                        alert("Payment details stored successfully!");
+	                        // Redirect user or update UI
+	                        // window.location.href = "uall.html";
+	                    })
+	                    .catch(error => {
+	                        console.error("Error saving payment:", error);
+	                        alert("Payment was successful, but failed to store details.");
+	                    });
+	            },
+	            theme: {
+	                color: "#3399cc"
+	            }
+	        };
+
+	        const rzp = new Razorpay(options);
+	        rzp.open();
+	    })
+	    .catch(err => {
+	        console.error("Error:", err);
+	        alert("Something went wrong. Please try again.");
+	    });
+
+};
+
+</script>
+
+</body>
+</html>

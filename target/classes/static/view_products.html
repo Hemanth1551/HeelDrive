@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        #productList, #productDetails {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+        img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h2>View Products</h2>
+    <input type="text" id="searchInput" placeholder="Enter Product ID" onkeyup="searchProduct()">
+    
+    <div id="productList"></div>
+    
+    <div id="productDetails" style="display: none;">
+        <h3 id="productName"></h3>
+        <img id="productImage" src="" alt="Product Image">
+        <p><strong>Brand:</strong> <span id="brand"></span></p>
+        <p><strong>Category:</strong> <span id="category"></span></p>
+        <p><strong>Color:</strong> <span id="color"></span></p>
+        <p><strong>Date:</strong> <span id="date"></span></p>
+        <p><strong>Description:</strong> <span id="description"></span></p>
+        <p><strong>Gender:</strong> <span id="gender"></span></p>
+        <p><strong>Old Price:</strong> <span id="old_price"></span></p>
+        <p><strong>Offer Price:</strong> <span id="offer_price"></span></p>
+        <p><strong>Size:</strong> <span id="size"></span></p>
+        <p><strong>Stock Quantity:</strong> <span id="stock_quantity"></span></p>
+    </div>
+
+    <script>
+        async function fetchAllProducts() {
+            try {
+                let response = await fetch('/getAllProducts');
+                let products = await response.json();
+                let productListDiv = document.getElementById("productList");
+                
+                productListDiv.innerHTML = "";
+                products.forEach(product => {
+                    let productDiv = document.createElement("div");
+                    productDiv.innerHTML = `
+                        <h4>${product.product_name}</h4>
+                        <img src="localhost/src/main/webapp/product_images/{product.img_1}" alt="Product Image">
+                        <p><strong>Brand:</strong> ${product.brand}</p>
+                        <p><strong>Price:</strong> ${product.offer_price}</p>
+                        <hr>
+                    `;
+                    productListDiv.appendChild(productDiv);
+                });
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        }
+        
+        async function searchProduct() {
+            const productId = document.getElementById("searchInput").value;
+            if (!productId) {
+                document.getElementById("productDetails").style.display = "none";
+                document.getElementById("productList").style.display = "block";
+                return;
+            }
+            
+            try {
+                let response = await fetch(`/getProduct?id=${productId}`);
+                if (!response.ok) {
+                    alert("Product not found");
+                    return;
+                }
+                
+                let product = await response.json();
+                document.getElementById("productName").textContent = product.product_name;
+                document.getElementById("productImage").src = `/uploads/${product.img_1}`;
+                document.getElementById("brand").textContent = product.brand;
+                document.getElementById("category").textContent = product.category;
+                document.getElementById("color").textContent = product.color;
+                document.getElementById("date").textContent = product.date;
+                document.getElementById("description").textContent = product.description;
+                document.getElementById("gender").textContent = product.gender;
+                document.getElementById("old_price").textContent = product.old_price;
+                document.getElementById("offer_price").textContent = product.offer_price;
+                document.getElementById("size").textContent = product.size;
+                document.getElementById("stock_quantity").textContent = product.stock_quantity;
+                
+                document.getElementById("productDetails").style.display = "block";
+                document.getElementById("productList").style.display = "none";
+            } catch (error) {
+                console.error("Error fetching product:", error);
+                alert("An error occurred. Please try again.");
+            }
+        }
+        
+        window.onload = fetchAllProducts;
+    </script>
+</body>
+</html>

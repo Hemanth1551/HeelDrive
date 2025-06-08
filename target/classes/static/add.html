@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Save Product</title>
+</head>
+<body>
+    <h1>Save Product</h1>
+    <form action="/saveProduct" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="product_id">Product ID:</label>
+            <input type="text" id="product_id" name="product_id" required>
+        </div>
+        <div>
+            <label for="product_name">Product Name:</label>
+            <input type="text" id="product_name" name="product_name" required>
+        </div>
+        <div>
+            <label for="brand">Brand:</label>
+            <input type="text" id="brand" name="brand">
+        </div>
+        <div>
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category">
+        </div>
+        <div>
+            <label for="color">Color:</label>
+            <input type="text" id="color" name="color">
+        </div>
+        <div>
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date">
+        </div>
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description"></textarea>
+        </div>
+        <div>
+            <label for="gender">Gender:</label>
+            <input type="text" id="gender" name="gender">
+        </div>
+        <div>
+            <label for="old_price">Old Price:</label>
+            <input type="text" id="old_price" name="old_price">
+        </div>
+        <div>
+            <label for="offer_price">Offer Price:</label>
+            <input type="text" id="offer_price" name="offer_price">
+        </div>
+        <div>
+            <label for="size">Size:</label>
+            <input type="text" id="size" name="size">
+        </div>
+        <div>
+            <label for="stock_quantity">Stock Quantity:</label>
+            <input type="text" id="stock_quantity" name="stock_quantity">
+        </div>
+        <div>
+            <label for="image1">Image 1:</label>
+            <input type="file" id="image1" name="image1" required>
+        </div>
+        <div>
+            <label for="image2">Image 2:</label>
+            <input type="file" id="image2" name="image2" required>
+        </div>
+        <div>
+            <label for="image3">Image 3:</label>
+            <input type="file" id="image3" name="image3" required>
+        </div>
+        <div>
+            <label for="image4">Image 4:</label>
+            <input type="file" id="image4" name="image4" required>
+        </div>
+        <div>
+            <label for="image5">Image 5:</label>
+            <input type="file" id="image5" name="image5" required>
+        </div>
+        <div>
+            <button type="submit">Save Product</button>
+        </div>
+    </form>
+</body>
+</html>

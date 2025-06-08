@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Products</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        .product-image {
+            width: 100px;
+            height: 100px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .action-buttons button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Products</h1>
+    <input type="text" id="product-search" placeholder="Enter Product ID" oninput="filterProductById()">
+    <table id="product-table">
+        <thead>
+            <tr>
+            	<th>User ID</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Phone</th>
+                <th>Creating</th>
+                <th>Updating</th>
+                <th>profile</th>
+                <th>Action</th> <!-- New column for actions -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Product rows will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        // Function to fetch all products with images and display them in a table
+        function fetchProductsWithImages() {
+            fetch('/api/getAllUsersWithImages')
+                .then(response => response.json()) // Parse the JSON response
+                .then(users => {
+                	
+                	const count = users.length;
+                	console.log("Total products:", count);
+                	
+                	console.log(users);
+                    const tableBody = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+                    tableBody.innerHTML = ''; // Clear the table before adding rows
+                    
+                    
+                    
+                    
+
+                    // Loop through the products and create table rows
+                    users.forEach(user => {
+                        const row = document.createElement('tr');
+                        
+                     	// ID
+                        const IdCell = document.createElement('td');
+                        IdCell.textContent = user.id;
+                        row.appendChild(IdCell);
+
+                        // user Name
+                        const nameCell = document.createElement('td');
+                        nameCell.textContent = user.username;
+                        row.appendChild(nameCell);
+                        
+                        // email
+                        const brandCell = document.createElement('td');
+                        brandCell.textContent = user.email;
+                        row.appendChild(brandCell);
+                        
+                        // password
+                        const categoryCell = document.createElement('td');
+                        categoryCell.textContent = user.password;
+                        row.appendChild(categoryCell);
+                        
+                        // phone to created
+                        const colorCell = document.createElement('td');
+                        colorCell.textContent = user.created;
+                        row.appendChild(colorCell);
+                        
+                        // created to phone
+                        const dateCell = document.createElement('td');
+                        dateCell.textContent = user.phone;
+                        row.appendChild(dateCell);
+                        
+                     	// updateat 
+                        const updateat = document.createElement('td');
+                        updateat.textContent = user.updateat;
+                        row.appendChild(updateat);
+                       
+                        
+                        // First Image
+                        const imageCell = document.createElement('td');
+                        const imgElement = document.createElement('img');
+                        imgElement.src = user.profile; // Set image source to the first image URL
+                        imgElement.alt = 'user Image';
+                        imgElement.className = 'product-image'; // Apply styling
+                        imageCell.appendChild(imgElement);
+                        row.appendChild(imageCell);
+
+                        // Action Buttons (Update, Delete, View)
+                        const actionCell = document.createElement('td');
+                        const actionButtons = document.createElement('div');
+                        actionButtons.className = 'action-buttons';
+                        
+                        const viewButton = document.createElement('button');
+						viewButton.textContent = 'View';
+						viewButton.onclick = () => {
+						    window.location.href = `userv.html?id=${user.id}`;
+						};
+						actionButtons.appendChild(viewButton);
+                        
+                        const updateButton = document.createElement('button');
+                        updateButton.textContent = 'Update';
+                        updateButton.onclick = () => {
+						    window.location.href = `userup.html?id=${user.id}`;
+						};
+						
+						actionButtons.appendChild(updateButton);
+
+                        // Delete Button
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.onclick = () => deleteProduct(user.id);
+                        actionButtons.appendChild(deleteButton);
+
+                        actionCell.appendChild(actionButtons);
+                        row.appendChild(actionCell);
+                        
+                        // Add the row to the table
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching products with images:', error));
+        }
+        
+        
+        function filterProductById() {
+            const input = document.getElementById('product-search').value.trim();
+            console.log(input);
+            
+            fetch('/api/getAllUsersWithImages')
+            .then(response => response.json())
+            .then(users => {       
+	            if (input === '') {
+	            	console.log("there is no user by id");
+	            } else {
+	                const filteredProducts = users.filter(user => user.id.toString() === input);
+	                //console.log(filteredProducts);
+	                
+	                const tableBody = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+                    tableBody.innerHTML = '';
+                    
+                    // Loop through the products and create table rows
+                    filteredProducts.forEach(user => {
+                        const row = document.createElement('tr');
+                        
+                     	// ID
+                        const IdCell = document.createElement('td');
+                        IdCell.textContent = user.id;
+                        row.appendChild(IdCell);
+
+                        // user Name
+                        const nameCell = document.createElement('td');
+                        nameCell.textContent = user.username;
+                        row.appendChild(nameCell);
+                        
+                        // email
+                        const brandCell = document.createElement('td');
+                        brandCell.textContent = user.email;
+                        row.appendChild(brandCell);
+                        
+                        // password
+                        const categoryCell = document.createElement('td');
+                        categoryCell.textContent = user.password;
+                        row.appendChild(categoryCell);
+                        
+                        // phone to created
+                        const colorCell = document.createElement('td');
+                        colorCell.textContent = user.created;
+                        row.appendChild(colorCell);
+                        
+                        // created to phone
+                        const dateCell = document.createElement('td');
+                        dateCell.textContent = user.phone;
+                        row.appendChild(dateCell);
+                        
+                     	// updateat 
+                        const updateat = document.createElement('td');
+                        updateat.textContent = user.updateat;
+                        row.appendChild(updateat);
+                       
+                        
+                        // First Image
+                        const imageCell = document.createElement('td');
+                        const imgElement = document.createElement('img');
+                        imgElement.src = user.profile; // Set image source to the first image URL
+                        imgElement.alt = 'user Image';
+                        imgElement.className = 'product-image'; // Apply styling
+                        imageCell.appendChild(imgElement);
+                        row.appendChild(imageCell);
+
+                        // Action Buttons (Update, Delete, View)
+                        const actionCell = document.createElement('td');
+                        const actionButtons = document.createElement('div');
+                        actionButtons.className = 'action-buttons';
+                        
+                        const viewButton = document.createElement('button');
+						viewButton.textContent = 'View';
+						viewButton.onclick = () => {
+						    window.location.href = `users.html?id=${user.id}`;
+						};
+						actionButtons.appendChild(viewButton);
+                        
+                        const updateButton = document.createElement('button');
+                        updateButton.textContent = 'Update';
+                        updateButton.onclick = () => {
+						    window.location.href = `userup.html?id=${user.id}`;
+						};
+						
+						actionButtons.appendChild(updateButton);
+
+                        // Delete Button
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Delete';
+                        deleteButton.onclick = () => deleteProduct(user.id);
+                        actionButtons.appendChild(deleteButton);
+
+                        actionCell.appendChild(actionButtons);
+                        row.appendChild(actionCell);
+                        
+                        // Add the row to the table
+                        tableBody.appendChild(row);
+                    });
+
+                    
+                    
+	                
+	            }
+            });
+        }
+
+        // Function to delete a product
+        function deleteProduct(Id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+            	console.log(Id);
+
+            	var int_id = parseInt(Id);
+            	
+            	console.log(int_id);
+
+                fetch(`/userdel/${int_id}`, { method: 'DELETE' })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Product deleted successfully');
+                            fetchProductsWithImages();  // Refresh the table after deletion
+                        } else {
+                            alert('Error deleting product');
+                        }
+                    })
+                    .catch(error => console.error('Error deleting product:', error));
+            }
+        }
+
+        
+        
+
+        // Call the function when the page loads
+        window.onload = fetchProductsWithImages;
+    </script>
+</body>
+</html>

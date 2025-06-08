@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Filter</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        .filter-section { margin-bottom: 10px; }
+        .filter-content { margin-left: 20px; }
+        .product-list { display: flex; flex-wrap: wrap; gap: 20px; }
+        .single-product { border: 1px solid #ddd; padding: 10px; width: 200px; text-align: center; }
+        .part-1 { height: 150px; background-size: cover; background-position: center; }
+    </style>
+</head>
+<body>
+
+    <h2>Product Filters</h2>
+    
+    <form class="filter-form" id="filterForm">
+        <div class="filter-section">
+            <h3>Gender</h3>
+            <div class="filter-content">
+                <label><input type="checkbox" name="gender" value="Men"> Men</label><br>
+                <label><input type="checkbox" name="gender" value="Women"> Women</label><br>
+                <label><input type="checkbox" name="gender" value="Kids"> Kids</label><br>
+                <label><input type="checkbox" name="gender" value="Unisex"> Unisex</label><br>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3>Price</h3>
+            <div class="filter-content">
+                <label><input type="checkbox" name="price" value="1500-3000"> ₹1500 - ₹3000</label><br>
+                <label><input type="checkbox" name="price" value="3000-6000"> ₹3000 - ₹6000</label><br>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3>Color</h3>
+            <div class="filter-content">
+                <label><input type="checkbox" name="color" value="white"> White</label><br>
+                <label><input type="checkbox" name="color" value="black"> Black</label><br>
+                <label><input type="checkbox" name="color" value="blue"> Blue</label><br>
+                <label><input type="checkbox" name="color" value="brown"> Brown</label><br>
+                <label><input type="checkbox" name="color" value="red"> Red</label><br>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3>Size</h3>
+            <div class="filter-content">
+                <label><input type="checkbox" name="size" value="S"> Small (S)</label><br>
+                <label><input type="checkbox" name="size" value="M"> Medium (M)</label><br>
+                <label><input type="checkbox" name="size" value="L"> Large (L)</label><br>
+                <label><input type="checkbox" name="size" value="XL"> Extra Large (XL)</label><br>
+            </div>
+        </div>
+
+        <div class="filter-section">
+            <h3>Sort By</h3>
+            <div class="filter-content">
+                <label><input type="radio" name="sort" value="lth"> Low to High</label><br>
+                <label><input type="radio" name="sort" value="htl"> High to Low</label><br>
+            </div>
+        </div>
+    </form>
+
+    <h2>Products</h2>
+    <div id="row" class="product-list"></div>
+
+    <script>
+        let allProducts = []; // Global variable to store products
+
+        function fetchProducts() {
+            fetch('getAllProductsWithImages') // Update this with your actual API endpoint
+                .then(response => response.json())
+                .then(products => {
+                    console.log(products);
+                    allProducts = products; // Store globally
+                    displayProducts(products);
+                    setupFilters(); // Set up filters dynamically
+                })
+                .catch(error => console.error("Error fetching products:", error));
+        }
+
+        function displayProducts(filteredProducts) {
+            const productList = document.getElementById("row");
+            productList.innerHTML = ""; // Clear previous products
+
+            if (filteredProducts.length === 0) {
+                productList.innerHTML = "<p>No products found.</p>";
+                return;
+            }
+
+            filteredProducts.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.classList.add('single-product');
+
+                productDiv.innerHTML = `
+                    <div id="product-${product.id}" class="product-card">
+                        <div class="part-1" style="background-image: url('${product.firstImageUrl}')"></div>
+                        <div class="part-2">
+                            <h4>${product.productName}</h4>
+                            <p>Old Price: <del>₹${product.oldPrice}</del></p>
+                            <p>Offer Price: <strong>₹${product.offerPrice}</strong></p>
+                            <p>Size: ${product.size}</p>
+                            <p>Color: ${product.color}</p>
+                            <p>Gender: ${product.gender}</p>
+                        </div>
+                    </div>
+                `;
+
+                productList.appendChild(productDiv);
+            });
+        }
+
+        function applyFilters() {
+            const selectedGenders = Array.from(document.querySelectorAll("input[name='gender']:checked")).map(input => input.value);
+            const selectedPrices = Array.from(document.querySelectorAll("input[name='price']:checked")).map(input => input.value);
+            const selectedColors = Array.from(document.querySelectorAll("input[name='color']:checked")).map(input => input.value.toLowerCase());
+            const selectedSizes = Array.from(document.querySelectorAll("input[name='size']:checked")).map(input => input.value);
+            const selectedSort = document.querySelector("input[name='sort']:checked")?.value;
+
+            let filteredProducts = allProducts.filter(product => {
+                return (
+                    (selectedGenders.length === 0 || selectedGenders.includes(product.gender)) &&
+                    (selectedPrices.length === 0 || selectedPrices.some(priceRange => {
+                        let [min, max] = priceRange.split("-").map(Number);
+                        return Number(product.offerPrice) >= min && Number(product.offerPrice) <= max;
+                    })) &&
+                    (selectedColors.length === 0 || selectedColors.includes(product.color.toLowerCase())) &&
+                    (selectedSizes.length === 0 || selectedSizes.includes(product.size))
+                );
+            });
+
+            if (selectedSort === "lth") {
+                filteredProducts.sort((a, b) => Number(a.offerPrice) - Number(b.offerPrice));
+            } else if (selectedSort === "htl") {
+                filteredProducts.sort((a, b) => Number(b.offerPrice) - Number(a.offerPrice));
+            }
+
+            displayProducts(filteredProducts);
+        }
+
+        function setupFilters() {
+            document.querySelectorAll(".filter-form input").forEach(input => {
+                input.addEventListener("change", applyFilters);
+            });
+        }
+
+        fetchProducts();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product View</title>
+    <script>
+        // Function to fetch product data and display it
+        function fetchProductData() {
+            const productId = new URLSearchParams(window.location.search).get('id'); // Get 'id' from URL
+            
+            if (!productId) {
+                alert("Product ID is missing!");
+                return;
+            }
+
+            // Make an AJAX request to get product data by ID
+            fetch(`/getProduct?id=${productId}`)
+                .then(response => response.json())  // Parse the response as JSON
+                .then(product => {
+                    // Display product details
+                    document.getElementById('productName').innerText = product.product_name;
+                    document.getElementById('productId').innerText = product.product_id;
+                    document.getElementById('brand').innerText = product.brand;
+                    document.getElementById('category').innerText = product.category;
+                    document.getElementById('color').innerText = product.color;
+                    document.getElementById('gender').innerText = product.gender;
+                    document.getElementById('oldPrice').innerText = product.old_price;
+                    document.getElementById('offerPrice').innerText = product.offer_price;
+                    document.getElementById('size').innerText = product.size;
+                    document.getElementById('stockQuantity').innerText = product.stock_quantity;
+                    document.getElementById('date').innerText = product.date;
+                    document.getElementById('description').innerText = product.description;
+
+                    // Display the first image (img_1)
+                    const imageUrl = `/product_images/${product.img_1}`;
+                    document.getElementById('productImage').src = imageUrl;
+                })
+                .catch(error => {
+                    console.error("Error fetching product data:", error);
+                    alert("Failed to load product data.");
+                });
+        }
+
+        // Call the function when the page is loaded
+        window.onload = fetchProductData;
+    </script>
+</head>
+<body>
+    <h1>Product Details</h1>
+    
+    <div>
+        <h2>Product Name: <span id="productName"></span></h2>
+        <p><strong>Product ID:</strong> <span id="productId"></span></p>
+        <p><strong>Brand:</strong> <span id="brand"></span></p>
+        <p><strong>Category:</strong> <span id="category"></span></p>
+        <p><strong>Color:</strong> <span id="color"></span></p>
+        <p><strong>Gender:</strong> <span id="gender"></span></p>
+        <p><strong>Old Price:</strong> <span id="oldPrice"></span></p>
+        <p><strong>Offer Price:</strong> <span id="offerPrice"></span></p>
+        <p><strong>Size:</strong> <span id="size"></span></p>
+        <p><strong>Stock Quantity:</strong> <span id="stockQuantity"></span></p>
+        <p><strong>Date:</strong> <span id="date"></span></p>
+        <p><strong>Description:</strong> <span id="description"></span></p>
+
+        <h3>Product Image:</h3>
+        <!-- Displaying only the first image (img_1) -->
+        <img id="productImage" alt="Product Image" width="300">
+    </div>
+</body>
+</html>

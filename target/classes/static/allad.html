@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Products</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        .product-image {
+            width: 100px;
+            height: 100px;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .action-buttons button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>All Products</h1>
+    <input type="text" id="address-search" placeholder="Enter user ID" oninput="filterAddressByUserId()">
+    <table id="product-table">
+        <thead>
+            <tr>
+            	<th>Address ID</th>
+                <th>User Id</th>
+                <th>Address Type</th>
+                <th>Address Line</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>City</th>
+                <th>ZipCode</th>
+                <th>IsDefault</th> <!-- New column for actions -->
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Product rows will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+    function fetchAddress() {
+        const userid = 2;
+        fetch('/api/address')
+            .then(response => response.json())
+            .then(addresses => {
+                console.log("Fetched Addresses:", addresses);
+
+                // Ensure addresses is an array before filtering
+                const tableBody = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = ''; 
+                
+                addresses.forEach(address =>{
+                	const row = document.createElement('tr');
+                	
+                	//address id
+                	const Addressid = document.createElement('td');
+                	Addressid.textContent = address.id;
+                    row.appendChild(Addressid);
+                    
+                    //userid 
+ 					const userid = document.createElement('td');
+                    userid.textContent = address.userid;
+                    row.appendChild(userid);
+                    
+                    //addresstype
+                    const addresstype = document.createElement('td');
+                    addresstype.textContent = address.addresstype;
+                    row.appendChild(addresstype);
+                    
+                    //addressline
+                    const addressline = document.createElement('td');
+                    addressline.textContent = address.addressline;
+                    row.appendChild(addressline);
+                    
+                    //country
+                    const country = document.createElement('td');
+                    country.textContent = address.country;
+                    row.appendChild(country);
+                    
+                    //state
+                    const state = document.createElement('td');
+                    state.textContent = address.state;
+                    row.appendChild(state);
+                    
+                    //city
+					const city = document.createElement('td');
+					city.textContent = address.city;
+					row.appendChild(city);
+					
+					//zipcode
+					const zipcode = document.createElement('td');
+					zipcode.textContent = address.zipcode;
+					row.appendChild(zipcode);
+					
+					//isdefault
+					const isdefault = document.createElement('td');
+					isdefault.textContent = address.isdefault;
+					row.appendChild(isdefault);
+					
+					//createdat
+					const createdat = document.createElement('td');
+					createdat.textContent = address.createdat;
+					row.appendChild(createdat);
+              
+                    
+                    tableBody.appendChild(row);
+                })
+                
+    });
+   }
+    
+    
+    function filterAddressByUserId() {
+        const userid = document.getElementById('address-search').value.trim();
+        console.log(userid);
+
+        if (userid === '') {
+            console.log("There is no user by that ID");
+            return;
+        }
+
+        fetch('/api/address')
+            .then(response => response.json())
+            .then(addresses => {
+                const tableBody = document.getElementById('product-table').getElementsByTagName('tbody')[0];
+                tableBody.innerHTML = '';
+
+                // Filter and handle possible null or undefined values
+                const filterAddresses = addresses.filter(address => 
+                    address?.userid !== undefined && address?.userid !== null && 
+                    address.userid.toString() === userid.toString()
+                );
+
+                // Populate the table with filtered addresses
+                filterAddresses.forEach(address => {
+                    const row = document.createElement('tr');
+
+                    const Addressid = document.createElement('td');
+                    Addressid.textContent = address.id;
+                    row.appendChild(Addressid);
+
+                    const userIdCell = document.createElement('td');
+                    userIdCell.textContent = address.userid;
+                    row.appendChild(userIdCell);
+
+                    const addresstype = document.createElement('td');
+                    addresstype.textContent = address.addresstype;
+                    row.appendChild(addresstype);
+
+                    const addressline = document.createElement('td');
+                    addressline.textContent = address.addressline;
+                    row.appendChild(addressline);
+
+                    const country = document.createElement('td');
+                    country.textContent = address.country;
+                    row.appendChild(country);
+
+                    const state = document.createElement('td');
+                    state.textContent = address.state;
+                    row.appendChild(state);
+
+                    const city = document.createElement('td');
+                    city.textContent = address.city;
+                    row.appendChild(city);
+
+                    const zipcode = document.createElement('td');
+                    zipcode.textContent = address.zipcode;
+                    row.appendChild(zipcode);
+
+                    const isdefault = document.createElement('td');
+                    isdefault.textContent = address.isdefault;
+                    row.appendChild(isdefault);
+
+                    const createdat = document.createElement('td');
+                    createdat.textContent = address.createdat;
+                    row.appendChild(createdat);
+
+                    tableBody.appendChild(row);
+                });
+
+            })
+            .catch(error => console.error("Error fetching addresses:", error));
+    }
+
+
+    // Call the function when the page loads
+    window.onload = fetchAddress;
+</script>
+
+</body>
+</html>

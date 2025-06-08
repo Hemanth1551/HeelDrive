@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>User Register</title>
+  <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6 login-section-wrapper">
+          <div class="brand-wrapper">
+            <img src="/images/logo.png" alt="logo" class="logo">
+          </div>
+          <div class="login-wrapper my-auto">
+            <h1 class="login-title">Register Here</h1>
+            <form method="post" id="UserForm">
+              <div class="form-group mb-4">
+                <label for="username">User Name</label>
+                <input type="text" name="username" id="username" class="form-control" placeholder="Enter your Name">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Example@gmail.com">
+              </div>
+              <div class="form-group mb-4">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Enter your passsword">
+              </div>
+              <div class="form-group mb-4">
+                <label for="mobile">Mobile</label>
+                <input type="text" name="phone" id="phone" class="form-control" placeholder="Enter your mobile no">
+              </div>
+              <div class="form-group mb-4">
+                <label for="profile">Profile</label>
+                <input type="file" name="image" id="image" class="form-control" placeholder="Enter your file">
+              </div>
+              <input name="register" id="register" class="btn btn-block login-btn" type="submit" value="register">
+            </form>
+
+          </div>
+        </div>
+        <div class="col-sm-6 px-0 d-none d-sm-block">
+          <img src="/images/login.jpg" alt="login image" class="login-img">
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  
+ 
+ <script>
+ 
+ function getTodayDate() {
+	  return new Date().toISOString().split("T")[0];
+}
+ 
+ document.getElementById("UserForm").addEventListener("submit", async function(event) {
+     event.preventDefault();
+     
+     let formData = new FormData(this);
+     formData.append("updateat", getTodayDate());
+     formData.append("created", getTodayDate());
+     
+     try {
+         let response = await fetch("/api/users", {
+             method: "POST",
+             body: formData
+         });
+         
+         if (response.ok) {
+             alert("You have successfully Registered! ");
+             document.getElementById("UserForm").reset();
+             window.location.href = "/userlogin.html";
+         } else {
+             alert("Failed to Register. Please try again.");
+         }
+     } catch (error) {
+         console.error("Error:", error);
+         alert("An error occurred. Please try again.");
+     }
+ });
+ 
+ </script>
+ 
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Products</title>
+    <style>
+        .product-image {
+            width: 200px;
+            height: 200px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Product Images</h1>
+    <div id="image-gallery">
+        <!-- Images will be inserted here by JavaScript -->
+    </div>
+
+    <script>
+        // Function to fetch all product image URLs and display them
+        function fetchProductImages() {
+            fetch('/getAllProductImages')
+                .then(response => response.json()) // Parse the JSON response
+                .then(imageUrls => {
+                    const gallery = document.getElementById('image-gallery');
+                    gallery.innerHTML = ''; // Clear the gallery before adding images
+                    
+                    // Loop through the image URLs and create image elements
+                    imageUrls.forEach(url => {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = url; // Set image source to the URL
+                        imgElement.alt = 'Product Image';
+                        imgElement.className = 'product-image'; // Apply styling
+                        gallery.appendChild(imgElement); // Add the image to the gallery
+                    });
+                })
+                .catch(error => console.error('Error fetching product images:', error));
+        }
+
+        // Call the function when the page loads
+        window.onload = fetchProductImages;
+    </script>
+</body>
+</html>

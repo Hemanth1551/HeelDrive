@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="ss1.css">
+	<script src="https://unpkg.com/phosphor-icons"></script>
+	<title>Admin Product Tab</title>
+</head>
+<body>
+	<div class="app">
+		<header class="app-header">
+			<div class="app-header-logo">
+				<div class="logo">
+					<span class="logo-icon">
+						<img src="/images/logo.png" />
+					</span>
+					<h1 class="logo-title">
+						<span>Heel_Drive</span>
+						<span>Shoes</span>
+					</h1>
+				</div>
+			</div>
+			<div class="app-header-navigation">
+				<div class="tabs">
+
+					<a href="address.html">
+						Addess
+					</a>
+					<a href="card.html">
+						Cards
+					</a>
+					<a href="users.html">
+						Users
+					</a>
+					<a href="order.html">
+						Orders
+					</a>
+					<a href="product.html">
+						Products
+					</a>
+				</div>
+			</div>
+			<div class="app-header-actions">
+				<button class="user-profile">
+					<span id="adminname"></span>
+					<span>
+						<img src="" id="adminimg"/>
+					</span>
+				</button>
+				<div class="app-header-actions-buttons">
+					<!-- <input class="user-search" type="text" placeholder="Search Users By Id"> -->
+				</div>
+			</div>
+			<div class="app-header-mobile">
+				<button class="icon-button large">
+					<i class="ph-list"></i>
+				</button>
+			</div>
+	
+		</header>
+		<div class="app-body">
+			<div class="app-body-navigation">
+				<nav class="navigation">
+					<a href="Dashboard.html">
+						<i class="ph-browsers"></i>
+						<span>Dashboard</span>
+					</a>
+					<a href="address.html">
+						<i class="ph ph-house"></i>
+						<span>Addess</span>
+					</a>
+					<a href="card.html">
+						<i class="ph ph-credit-card"></i>
+						<span>Cards</span>
+					</a>
+					<a href="users.html">
+						<i class="ph ph-user"></i>
+						<span>Users</span>
+					</a>
+					<a href="order.html">
+						<i class="ph ph-bag"></i>
+						<span>Orders</span>
+					</a>
+					<a href="product.html">
+						<i class="ph ph-package"></i>
+						<span>Products</span>
+					</a>
+					<a href="payment.html">
+						<i class="ph ph-currency-inr"></i>
+						<span>Payments</span>
+					</a>
+					<a href="profile.html">
+						<i class="ph ph-user-circle"></i>
+						<span>Profile</span>
+					</a>
+				</nav>
+				<footer class="footer">
+					<h1>Heel Drive<small>©</small></h1>
+					<div>
+						Heel Drive ©<br />
+						All Rights Reserved 2025
+					</div>
+				</footer>
+			</div>
+			<div class="app-body-main-content">
+				<section class="service-section" style="width: 500px;">
+					<h2>Add For New Admin Data </h2>
+					<div class="service-section-header">
+					</div>
+					<div class="mobile-only">
+						<button class="flat-button">
+							Toggle search
+						</button>
+					</div>
+					<label >Enter All details for carefully For adding new Admin To Managing data </label>
+
+					<div class="tiles">
+						<form id="adminForm">
+							<article>
+								<input type="text" name="username" class="user-search" placeholder="Enter Admin Name" required>
+								<input type="text" name="email" class="user-search" placeholder="Enter Email Id" required>
+							    <input type="password" name="password" class="user-search" placeholder="Password" required>
+							    <input type="password" class="user-search" placeholder="Confirm Password" required>
+							    <input type="text" name="phone" class="user-search" placeholder="Phone">
+    							<input type="file" name="image" class="user-search" placeholder="Profile">
+							</article>
+							<article>
+								<!-- empty -->
+								<input type="submit" value="Add Admin">
+							</article>
+						</form>
+							<article>
+								<!-- empty -->
+    							<button title="Logout" onclick="logout()" style="margin-top: 10px; height: 44px; width: 45px;" class="logoutbtn"><i class="ph ph-sign-out"></i></button>
+							</article>
+						
+					</div>
+					<div class="service-section-footer">
+						<p>Profile photo was not updated onces is created</p>
+					</div>
+				</section>
+				<section class="payment-section" style="margin-left: 100px;">
+					<h2>All Admins </h2>
+					<div class="payments">
+						<table style="width: 400px;" id="admin-table">
+							<thead>
+								<tr>
+									<th>Admin name</th>
+									<th>Admin ID</th>
+									<th>Mobile No</th>
+									<th>Email Id</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+							</tbody>
+						</table>
+					</div>
+					<div class="faq">
+						<!-- <p>Most frequently asked questions</p> -->
+						<div>
+							<label>Admins </label>
+							<input class="user-search" id="admin-search" type="text" oninput="filteAdminById()" placeholder="Search Admin By Id">
+						</div>
+					</div>
+					<div class="payment-section-footer">
+					</div>
+				</section>
+
+
+                
+			</div>
+			<div class="app-body-sidebar">
+
+			</div>
+
+            
+		</div>
+
+        <section class="transfer-section">
+            <div class="transfer-section-header">
+                <h2>Your Details</h2>
+                <div class="filter-options">
+                    <p></p>
+                    <button class="icon-button">
+                        <i class="ph-funnel"></i>
+                    </button>
+                    <button class="icon-button">
+                        <i class="ph-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="transfers">
+                <div>
+					<div class="userdata" style="display: flex;">
+						<div class="userone" style="margin-right: 50px;">
+							<span class="Email">Admin Name : </span> <input type="text" id="adminnamee" class="user-search" placeholder="Admin Name" style="width: 250px; margin-top: 10px;"><br>
+							<span class="Email">Email Id : </span> <input type="text" id="adminemail" class="user-search" placeholder="Email Id" style="width: 250px; margin-top: 10px;"><br>
+							<span class="password">Password : </span> <input type="text" id="adminpass" class="user-search" placeholder="Password" style="width: 250px; margin-top: 10px;"> <br>
+						</div>
+						<div class="usertwo">
+							<span class="MonileNo">Mobile No : <input type="text" id="adminmobile" class="user-search" placeholder="Mobile No" style="width: 250px; margin-top: 10px;"> <br>
+							<span class="created">Account Created : </span> <input type="text" id="admincreated" readonly class="user-search" style="width: 250px; margin-top: 10px;"> <br>
+							<span class="updated">Last Acount Updated : </span> <input type="text" id="adminupdate" readonly class="user-search" style="width: 250px; margin-top: 10px;"> <br>
+						</div>
+						<div class="userthree">
+							<img src="" alt="Admin photo" id="adminimgg" style="width: 250px; height: 250px; margin-left:50px;">
+						</div>
+					</div>
+				</div>
+                
+            </div>
+        </section>
+	</div>
+</body>
+</html>
+
+<script>
+	
+
+let admindata = {};
+let filteradmin = {};
+
+async function fetchAdminInfo() {
+  try {
+	  const [adminRes, adminsRes] = await Promise.all([
+	      fetch('/api/admininfo'),
+	      fetch('/api/admins')  // Replace with your actual second endpoint
+	    ]);
+
+    if (!adminRes.ok) {
+      throw new Error('Failed to fetch admin info');
+    }
+
+    const data = await adminRes.json();
+    admindata = await adminsRes.json();
+    
+    // Update DOM
+    document.getElementById("adminname").innerText = data.name;
+    document.getElementById("adminimg").src = `/api/getAdminImage/${data.id}`;
+    
+    
+    filteradmin = admindata.filter(add => 
+    	add?.id !== undefined && add?.id !== null && 
+    	add.id.toString() === data.id.toString()
+	);
+
+        
+    adminprint(filteradmin);
+    admindatafun();
+
+  } catch (error) {
+    console.error('Error fetching admin data:', error.message);
+  }
+}
+
+function logout() {
+	  fetch('/api/adminlogout', {
+	    method: 'POST',
+	    credentials: 'include'  // Important to send session cookie
+	  })
+	    .then(res => {
+	      if (res.ok) return res.text();
+	      else throw new Error('Logout failed');
+	    })
+	    .then(() => {
+	      window.location.href = '/adminlogin.html';
+	    })
+	    .catch(() => {
+	      alert("Not logged in. Redirecting to login page.");
+	      window.location.href = '/adminlogin.html';
+	    });
+	}
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+	fetch('/api/admininfo')
+    .then(res => {
+      if (res.ok) return res.json();
+      else throw new Error('Not Admin');
+    })
+    .then(user => {
+      // User is logged in
+      console.log("Logged in as Admin:", user.name);
+      fetchAdminInfo();
+
+      //window.location.href = `/usersingleproduct.html?id=${loc}`;
+    })
+    .catch(() => {
+      // Neither admin nor user logged in
+      alert("Not logged in. Redirecting to login page.");
+      window.location.href = '/adminlogin.html';
+    });
+});
+
+// Call function on load
+//fetchAdminInfo();
+
+
+function admindatafun(){
+	const tableBody = document.getElementById('admin-table').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = ''; // Clear the table before adding rows
+
+
+    // Loop through the users and create table rows
+    admindata.forEach(user => {
+        const row = document.createElement('tr');
+        
+        
+     // user Name
+        const nameCell = document.createElement('td');
+        nameCell.textContent = user.username;
+        row.appendChild(nameCell);
+        
+        const IdCell = document.createElement('td');
+        IdCell.textContent = user.id;
+        row.appendChild(IdCell);
+        
+        const dateCell = document.createElement('td');
+        dateCell.textContent = user.phone;
+        row.appendChild(dateCell);
+        
+        const emailCell = document.createElement('td');
+        emailCell.textContent = user.email;
+        row.appendChild(emailCell);
+ 
+        tableBody.appendChild(row);
+  
+    });
+        
+}
+
+
+function adminprint(filteradmin){
+	
+    console.log(" Data:", filteradmin[0].username);
+
+	document.getElementById("adminnamee").value = filteradmin[0].username;
+	document.getElementById("adminemail").value = filteradmin[0].email;
+	document.getElementById("adminpass").value = filteradmin[0].password;
+	document.getElementById("adminmobile").value = filteradmin[0].phone;
+	document.getElementById("admincreated").value = filteradmin[0].created;
+	document.getElementById("adminupdate").value = filteradmin[0].updateat;
+    document.getElementById("adminimgg").src = `/api/getAdminImage/${filteradmin[0].id}`;
+    
+
+}
+
+
+
+function updateAdminField(field, value) {
+		
+	const adminId = filteradmin[0].id;
+	function getTodayDate() {
+		  return new Date().toISOString().split("T")[0];
+	}
+	
+	const payload = {
+		    [field]: value,
+		    updateat: getTodayDate()  // Always add "updated" field
+		  };
+	
+	fetch(`/api/admin/${adminId}`, {
+	    method: 'PUT',
+	    headers: {
+	      'Content-Type': 'application/json'
+	    },
+	    body: JSON.stringify(payload)
+	  })
+	  .then(response => {
+	    if (!response.ok) throw new Error("Failed to update admin");
+	    return response.json();
+	  })
+	  .then(data => {
+	    console.log(`Updated ${field}:`, data);
+	  })
+	  .catch(error => {
+	    console.error(`Error updating ${field}:`, error);
+	  });
+	}
+
+
+//Attach listeners
+document.getElementById("adminnamee").addEventListener("blur", function () {
+  updateAdminField("username", this.value);
+});
+
+document.getElementById("adminemail").addEventListener("blur", function () {
+  updateAdminField("email", this.value);
+});
+
+document.getElementById("adminpass").addEventListener("blur", function () {
+  updateAdminField("password", this.value);
+});
+
+document.getElementById("adminmobile").addEventListener("blur", function () {
+  updateAdminField("phone", this.value);
+});
+
+
+document.getElementById("adminForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    let formData = new FormData(this);
+
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
+
+    // Append `created` and `updated` fields
+    formData.append("created", today);
+    formData.append("updateat", today);
+
+    try {
+        let response = await fetch("/api/admin", {
+            method: "POST",
+            body: formData
+        });
+
+        if (response.ok) {
+            alert("Admin added successfully!");
+            document.getElementById("adminForm").reset();
+        } else {
+            alert("Failed to add Admin. Please try again.");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again.");
+    }
+});
+
+
+
+function filteAdminById() {
+    const input = document.getElementById('admin-search').value.trim();
+    //console.log(input);
+    
+    
+            const filtereduser = admindata.filter(user => user.id.toString() === input);
+            //console.log(filteredProducts);
+            
+            const tableBody = document.getElementById('admin-table').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+            
+            filtereduser.forEach(user => {
+                const row = document.createElement('tr');
+
+             // user Name
+                const nameCell = document.createElement('td');
+                nameCell.textContent = user.username;
+                row.appendChild(nameCell);
+                
+                const IdCell = document.createElement('td');
+                IdCell.textContent = user.id;
+                row.appendChild(IdCell);
+                
+                const dateCell = document.createElement('td');
+                dateCell.textContent = user.phone;
+                row.appendChild(dateCell);
+                
+                const emailCell = document.createElement('td');
+                emailCell.textContent = user.email;
+                row.appendChild(emailCell);
+         
+                tableBody.appendChild(row);
+
+
+				});
+
+            
+            
+            
+}
+
+
+</script>
+
+<style>
+
+	.logoutbtn i{
+		font-size: 20px;
+	}
+	
+</style>
+
+

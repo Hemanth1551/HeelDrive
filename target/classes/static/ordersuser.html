@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Orders</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>User Orders</h2>
+    <table id="ordersTable">
+        <thead>
+            <tr>
+                <th>Per Price</th>
+                <th>Total Price</th>
+                <th>Payment Status</th>
+                <th>Order Status</th>
+                <th>Created Date</th>
+                <th>Quantity</th>
+                <th>Product</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Orders will be injected here -->
+        </tbody>
+    </table>
+
+    <script>
+        const userId = "52";
+
+        async function fetchUserOrders() {
+            try {
+                const ordersRes = await fetch("/api/order");
+                const orders = await ordersRes.json();
+                const userOrders = orders.filter(order => order.userid == userId);
+                console.log("User Orders:", userOrders);
+
+                const itemRes = await fetch("/api/orderitem");
+                const items = await itemRes.json();
+                const userOrderItems = items.filter(item => 
+                    userOrders.find(order => item.orderid == order.id)
+                );
+                console.log("User Order Items:", userOrderItems);
+
+                const productRes = await fetch("/getAllProducts");
+                const products = await productRes.json();
+                const userOrderProducts = products.filter(product => 
+                    userOrderItems.find(orderitem => orderitem.productid == product.id)
+                );
+                console.log("User Products:", userOrderProducts);
+
+                // ✅ Mapping final orders
+                const finalOrders = userOrderItems.map(item => {
+                    const order = userOrders.find(o => o.id == item.orderid);
+                    const product = userOrderProducts.find(pro => pro.id == item.productid);
+
+                    return {
+                    	orderid: order?.id || 0,
+                	    productid: product?.id || 0,
+                        perPrice: item?.perunitprice || 0,
+                        totalPrice: item?.totalprice || 0,
+                        paymentStatus: order?.paymentstatus || "Unknown",
+                        orderStatus: order?.status || "Unknown",
+                        createdDate: order?.createdat || "N/A",
+                        quantity: item?.quantity || 1,
+                        image: product?.img_1 || "",
+                        name: product?.product_name || "Unknown"
+                    };
+                });
+
+                console.log("Final Orders:", finalOrders);
+
+                // ✅ Inject into HTML table
+                populateTable(finalOrders);
+                
+            } catch (error) {
+                console.error("Error fetching orders:", error);
+            }
+        }
+
+        function populateTable(orders) {
+            const tableBody = document.querySelector("#ordersTable tbody");
+            tableBody.innerHTML = ""; // Clear existing data
+
+            orders.forEach(order => {
+                const row = document.createElement("tr");
+
+                // Determine payment status color
+                let paymentColor = order.paymentStatus.toLowerCase() === "paid" ? "green" : "red";
+                let orderColor = order.orderStatus.toLowerCase() === "Shipped" ? "green" : "red";
+
+                row.innerHTML = `
+                    <td>${order.perPrice}</td>
+                    <td>${order.totalPrice}</td>
+                    <td style="color: ${paymentColor}; font-weight: bold;">${order.paymentStatus}</td>
+                    <td style="color: ${orderColor}; font-weight: bold;">${order.orderStatus}</td>
+                    <td>${order.createdDate}</td>
+                    <td>${order.quantity}</td>
+                    <td>${order.name}</td>
+                    <td><img src="/getProductImage/${order.productid}" alt="${order.name}"></td>
+                `;
+
+                tableBody.appendChild(row);
+            });
+        }
+
+
+        // Call function
+        fetchUserOrders();
+    </script>
+
+</body>
+</html>
